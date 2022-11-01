@@ -60,11 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
 
-    void _useTts() async {
-      FlutterTts flutterTts = FlutterTts();
-      var result = await flutterTts.speak("Hello World");
-    }
+  void _useTts() async {
+    FlutterTts flutterTts = FlutterTts();
+    var result = await flutterTts.speak("Hello World");
   }
 
   @override
@@ -112,9 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => [
-          _incrementCounter,
-        ],
+        onPressed: _useTts,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
