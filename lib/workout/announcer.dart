@@ -1,11 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:logger/logger.dart';
-
-
-
-var log = Logger(level: Level.info);
 
 abstract class Announcer
 {
@@ -24,6 +19,7 @@ class AnnouncerTts extends Announcer {
   @override
   Future announce(String text) async {
       await flutterTts.speak(text);
+      await flutterTts.awaitSpeakCompletion(true);
   }
 
   @override
@@ -35,7 +31,7 @@ class AnnouncerTts extends Announcer {
   Future announceCountdown(int from) async {
     for (; from > 0; from--) {
       await flutterTts.speak(from.toString());
-      await Future.delayed(const Duration(seconds: 1));
+      await flutterTts.awaitSpeakCompletion(true); // waits about a second inbetween
     }
   }
 }

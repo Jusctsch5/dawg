@@ -18,3 +18,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+Running tests:
+Some of the tests only require dart. Some of the tests require flutter.
+flutter run .\lib\workout\test\announcer_test.dart
+
+# If the Announcer used is AnnouncerTts vs AnnouncerLog
+flutter run .\lib\workout\test\player_test.dart

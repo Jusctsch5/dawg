@@ -6,6 +6,7 @@ import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/player.dart';
 import 'package:dawg/workout/workout.dart';
 import 'package:test/test.dart';
+import 'package:flutter/material.dart';
 
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
@@ -30,7 +31,7 @@ Future<void> testPlayer() async {
 
   var workout = Workout("Example Workout", workConfig, [ex1, ex2, ex3]);
   var player = Player();
-  var announcer = AnnouncerLog();
+  var announcer = AnnouncerTts();
 
   player.playWorkout(workout, announcer);
   inspect(workout);
@@ -40,6 +41,7 @@ Future<void> testPlayer() async {
 void main() {
   group("Player", () {
     test("testPlayer", () async {
+      WidgetsFlutterBinding.ensureInitialized();
       await testPlayer();
       await Future.delayed(const Duration(seconds: 5));
     });
