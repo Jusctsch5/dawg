@@ -9,8 +9,7 @@ void testSimpleConfigurationFromJson() {
     "exercises": [
       {
         "name": "High Standing Crunch",
-        "description":
-            "Using high suspended bands from standing position, back to the wall, bring ribcage down, incidentally pulling the bands down",
+        "description": "Using high suspended bands from standing position, back to the wall, bring ribcage down, incidentally pulling the bands down",
         "id": "7755798c-647c-45c3-9c05-a434699c68bc",
         "equipment": ["suspendedBand"],
         "alternateSidesBetweenSets": true,
@@ -19,8 +18,7 @@ void testSimpleConfigurationFromJson() {
       },
       {
         "name": "Curl to Front Squat",
-        "description":
-            "Standing up straight with arms at sides, holding bands. Hook bands on feet. Perform a dumbell curl and squat down, keeping back straight.",
+        "description": "Standing up straight with arms at sides, holding bands. Hook bands on feet. Perform a dumbell curl and squat down, keeping back straight.",
         "id": "598ae548-4fca-445b-a5d1-1a64b0ffe3ab",
         "equipment": ["resistanceBand"],
         "muscleGroups": ["legs", "arms"],
@@ -34,7 +32,6 @@ void testSimpleConfigurationFromJson() {
 }
 
 Future<void> testSimpleConfigurationFromFile() async {
-  print(Directory.current);
   var file = File('lib/configuration/test/exercise_configuration.json');
   var json = jsonDecode(await file.readAsString());
   var configuration = ExerciseConfiguration.fromJson(json);
@@ -49,22 +46,19 @@ Future<void> testFilterExercises() async {
   var exercises = configuration.filterExercises(filter);
   expect(exercises.length, configuration.exercises.length);
 
-  filter = ExerciseFilter(equipment:Equipment.ring);
+  filter = ExerciseFilter(equipment: Equipment.ring);
   exercises = configuration.filterExercises(filter);
   expect(exercises.length, 8);
 
-  filter = ExerciseFilter(equipment:Equipment.resistanceBand);
+  filter = ExerciseFilter(equipment: Equipment.resistanceBand);
   exercises = configuration.filterExercises(filter);
   expect(exercises.length, 24);
 
-  filter = ExerciseFilter(equipment:Equipment.resistanceBand, muscleGroup:MuscleGroup.arms);
+  filter = ExerciseFilter(equipment: Equipment.resistanceBand, muscleGroup: MuscleGroup.arms);
   exercises = configuration.filterExercises(filter);
   expect(exercises.length, 13);
 
-
-  filter = ExerciseFilter(equipment:Equipment.resistanceBand,
-                          muscleGroup:MuscleGroup.arms,
-                          muscle:Muscle.triceps);
+  filter = ExerciseFilter(equipment: Equipment.resistanceBand, muscleGroup: MuscleGroup.arms, muscle: Muscle.triceps);
   exercises = configuration.filterExercises(filter);
   expect(exercises.length, 5);
 }
@@ -77,35 +71,27 @@ Future<void> testFilterExerciseByGroups() async {
   var exercises = configuration.filterExercisesByGroups(filter);
   expect(exercises.length, configuration.exercises.length);
 
-  filter = ExerciseFilterByGroups(equipment:[Equipment.ring]);
+  filter = ExerciseFilterByGroups(equipment: [Equipment.ring]);
   exercises = configuration.filterExercisesByGroups(filter);
   expect(exercises.length, 8);
 
-  filter = ExerciseFilterByGroups(equipment:[Equipment.ring, Equipment.resistanceBand]);
+  filter = ExerciseFilterByGroups(equipment: [Equipment.ring, Equipment.resistanceBand]);
   exercises = configuration.filterExercisesByGroups(filter);
   expect(exercises.length, 28);
 
-  filter = ExerciseFilterByGroups(
-    equipment:[Equipment.ring, Equipment.resistanceBand],
-    muscleGroups:[MuscleGroup.arms]);
+  filter = ExerciseFilterByGroups(equipment: [Equipment.ring, Equipment.resistanceBand], muscleGroups: [MuscleGroup.arms]);
   exercises = configuration.filterExercisesByGroups(filter);
   expect(exercises.length, 17);
 
-  filter = ExerciseFilterByGroups(
-    equipment:[Equipment.ring, Equipment.resistanceBand],
-    muscleGroups:[MuscleGroup.arms],
-    muscle: Muscle.triceps);
+  filter = ExerciseFilterByGroups(equipment: [Equipment.ring, Equipment.resistanceBand], muscleGroups: [MuscleGroup.arms], muscle: Muscle.triceps);
   exercises = configuration.filterExercisesByGroups(filter);
   expect(exercises.length, 6);
 
   // Plank and pushup
-  filter = ExerciseFilterByGroups(
-    equipment:[Equipment.gluteBand],
-    muscleGroups:[MuscleGroup.arms]);
+  filter = ExerciseFilterByGroups(equipment: [Equipment.gluteBand], muscleGroups: [MuscleGroup.arms]);
   exercises = configuration.filterExercisesByGroups(filter);
   expect(exercises.length, 2);
 }
-
 
 void main() {
   group("ExerciseConfiguration", () {

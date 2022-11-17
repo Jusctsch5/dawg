@@ -1,4 +1,3 @@
-
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
 
@@ -7,8 +6,6 @@ import 'exercisew.dart';
 import 'workout.dart';
 
 class Decoder {
-
-
   /// Obtains a new exercise from list of exercises, where "new" means not present in excluded.
   /// If one is not available, return a random exercise.
   Exercise getNewExerciseFromListOrRandom(List<Exercise> exercises, List<Exercise> excluded) {
@@ -30,11 +27,10 @@ class Decoder {
     List<ExerciseW> exercisesWForWorkout = [];
     var currentExerciseLengthSeconds = 0;
 
-    var musclesToWork =  getMusclesForGroups(woConfig.muscleGroups);
+    var musclesToWork = getMusclesForGroups(woConfig.muscleGroups);
 
     // Find an exercise for each muscle to work.
     while (currentExerciseLengthSeconds < woConfig.durationSeconds) {
-
       for (var muscleToWork in musclesToWork) {
         var muscleExercises = exConfig.filterExercises(ExerciseFilter(muscle: muscleToWork));
         var exerciseDef = getNewExerciseFromListOrRandom(muscleExercises, exercisesForWorkout);
@@ -49,7 +45,6 @@ class Decoder {
     var filter = ExerciseFilterByGroups(equipment: woConfig.equipment, muscleGroups: woConfig.muscleGroups);
     var totalExercises = exConfig.filterExercisesByGroups(filter);
     while (currentExerciseLengthSeconds < woConfig.durationSeconds) {
-
       var exerciseDef = getNewExerciseFromListOrRandom(totalExercises, exercisesForWorkout);
       var exercisew = ExerciseW(exerciseDef, woConfig.setDurationSeconds, woConfig.setPerExercise);
       exercisesForWorkout.add(exerciseDef);
@@ -57,6 +52,6 @@ class Decoder {
       currentExerciseLengthSeconds += exercisew.totalDuration;
     }
 
-    return Workout(woConfig.name, woConfig, exercisesWForWorkout);
+    return Workout(woConfig.name, exercisesWForWorkout, woConfig.muscleGroups, woConfig.startDelaySeconds, woConfig.finishDelaySeconds, woConfig.durationMinutes);
   }
 }

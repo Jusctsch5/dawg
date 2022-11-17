@@ -20,7 +20,7 @@ Future<void> testSimpleConfigurationFromFile() async {
   var file = File('lib/configuration/test/workout_configuration.json');
   var json = jsonDecode(await file.readAsString());
   var configuration = WorkoutConfiguration.fromJson(json);
-  expect(configuration.startDelaySeconds, 20);
+  expect(configuration.startDelaySeconds, 30);
 }
 
 void main() {

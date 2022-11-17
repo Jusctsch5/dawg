@@ -14,9 +14,7 @@ import 'dart:developer';
 
 import 'package:dawg/workout/exercisew.dart';
 
-
 Future<void> testPlayer() async {
-
   var e1 = Exercise(name: "sweep", description: "Sweep up boogrit and clark", equipment: [Equipment.none], muscleGroups: [MuscleGroup.arms], muscles: [Muscle.glutes], alt: false);
   var e2 = Exercise(name: "beep", description: "Boogrit beeps", equipment: [Equipment.none], muscleGroups: [MuscleGroup.arms], muscles: [Muscle.glutes], alt: false);
   var e3 = Exercise(name: "jeep", description: "Clark turns into a jeep", equipment: [Equipment.none], muscleGroups: [MuscleGroup.arms], muscles: [Muscle.glutes], alt: false);
@@ -29,13 +27,12 @@ Future<void> testPlayer() async {
   var ex2 = ExerciseW(e2, 10, 2);
   var ex3 = ExerciseW(e3, 10, 2);
 
-  var workout = Workout("Example Workout", workConfig, [ex1, ex2, ex3]);
+  var workout = Workout("Example Workout", [ex1, ex2, ex3], workConfig.muscleGroups, workConfig.startDelaySeconds, workConfig.finishDelaySeconds, workConfig.durationMinutes);
   var player = Player();
   var announcer = AnnouncerTts();
 
   player.playWorkout(workout, announcer);
   inspect(workout);
-
 }
 
 void main() {
