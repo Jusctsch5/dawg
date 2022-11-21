@@ -6,8 +6,5 @@ class ExerciseW {
   final int sets;
   final int totalDuration;
 
-  ExerciseW(this.exercise, this.setDuration, this.sets) :
-    totalDuration = setDuration * sets;
-
-
+  ExerciseW(this.exercise, this.setDuration, this.sets) : totalDuration = setDuration * sets;
 }

@@ -54,10 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final announcer = AnnouncerTts();
   final player = Player();
 
-  List<Workout> workouts = [];
-
-  void _refreshWorkouts() async {
-    workouts.clear();
+  Future<List<Workout>> _refreshWorkoutsAsync() async {
+    List<Workout> workouts = [];
 
     var decoder = Decoder();
 
@@ -76,9 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
       workouts.add(workout);
     }
 
-    setState(() {
-      workouts = workouts;
-    });
+    return workouts;
   }
 
   void _playWorkout(Workout workout) async {
@@ -87,42 +83,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: ListView(
-          children: <Widget>[
-            Scrollbar(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: workouts.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                        title: Text(workouts[index].name),
-                        subtitle: Text("Duration: ${workouts[index].durationMinutes} Minutes"),
-                        //trailing: Column(children: const [Icon(Icons.play_arrow)]));
-                        trailing: IconButton(
-                            icon: const Icon(Icons.play_arrow),
-                            tooltip: 'Play Workout',
-                            onPressed: () {
-                              _playWorkout(workouts[index]);
-                            }));
-                  }),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _refreshWorkouts,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+    return FutureBuilder<List<Workout>>(
+        future: _refreshWorkoutsAsync(),
+        builder: (context, AsyncSnapshot<List<Workout>> snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            var workouts = snapshot.data;
+            if (workouts == null) {
+              return const CircularProgressIndicator();
+            }
+
+            return Scaffold(
+              appBar: AppBar(
+                // Here we take the value from the MyHomePage object that was created by
+                // the App.build method, and use it to set our appbar title.
+                title: Text(widget.title),
+              ),
+              body: Center(
+                // Center is a layout widget. It takes a single child and positions it
+                // in the middle of the parent.
+                child: ListView(
+                  children: <Widget>[
+                    Scrollbar(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: workouts.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                                title: Text(workouts[index].name),
+                                subtitle: Text("Duration: ${workouts[index].durationMinutes} Minutes"),
+                                //trailing: Column(children: const [Icon(Icons.play_arrow)]));
+                                trailing: IconButton(
+                                    icon: const Icon(Icons.play_arrow),
+                                    tooltip: 'Play Workout',
+                                    onPressed: () {
+                                      _playWorkout(workouts[index]);
+                                    }));
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        });
   }
 }

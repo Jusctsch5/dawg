@@ -28,6 +28,7 @@ class Decoder {
     var currentExerciseLengthSeconds = 0;
 
     var musclesToWork = getMusclesForGroups(woConfig.muscleGroups);
+    musclesToWork.shuffle();
 
     // Find an exercise for each muscle to work.
     while (currentExerciseLengthSeconds < woConfig.durationSeconds) {
@@ -52,6 +53,7 @@ class Decoder {
       currentExerciseLengthSeconds += exercisew.totalDuration;
     }
 
-    return Workout(woConfig.name, exercisesWForWorkout, woConfig.muscleGroups, woConfig.startDelaySeconds, woConfig.finishDelaySeconds, woConfig.durationMinutes);
+    return Workout(woConfig.name, exercisesWForWorkout, woConfig.muscleGroups, woConfig.startDelaySeconds, woConfig.finishDelaySeconds,
+        woConfig.durationMinutes);
   }
 }
