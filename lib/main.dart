@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
+import 'package:dawg/ui/workout_page.dart';
 import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/decoder.dart';
 import 'package:dawg/workout/player.dart';
@@ -101,8 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text(widget.title),
               ),
               body: Center(
-                // Center is a layout widget. It takes a single child and positions it
-                // in the middle of the parent.
                 child: ListView(
                   children: <Widget>[
                     Scrollbar(
@@ -111,6 +110,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemCount: workouts.length,
                           itemBuilder: (context, index) {
                             return ListTile(
+                                onTap: () {
+                                  log.d("TAPPED $index");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WorkoutPage(title: workouts[index].name, workout: workouts[index])),
+                                  );
+                                },
                                 title: Text(workouts[index].name),
                                 subtitle: Text("Duration: ${workouts[index].durationMinutes} Minutes"),
                                 //trailing: Column(children: const [Icon(Icons.play_arrow)]));
