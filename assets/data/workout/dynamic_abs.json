@@ -1,6 +1,6 @@
 {
     "name": "Dynamic Abs Workout",
-    "musclegroups": ["abdominals"],
+    "muscleGroups": ["abdominals"],
     "durationMinutes": 20,
     "startDelay": 20,
     "finishDelay": 60

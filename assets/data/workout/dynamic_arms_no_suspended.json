@@ -1,6 +1,6 @@
 {
     "name": "Dynamic Arms Workout (No suspended bands)",
-    "musclegroups": ["arms"],
+    "muscleGroups": ["arms"],
     "equipment":["resistanceBand", "gluteBand", "ring"],
     "durationMinutes": 20,
     "startDelay": 20,

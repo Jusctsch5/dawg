@@ -1,6 +1,6 @@
 {
     "name": "Dynamic All Workout (No suspended bands)",
-    "musclegroups": ["arms", "legs", "abdominals"],
+    "muscleGroups": ["arms", "legs", "abdominals"],
     "equipment":["resistanceBand", "gluteBand", "ring"],
     "durationMinutes": 20,
     "startDelay": 20,

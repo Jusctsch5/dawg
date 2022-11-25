@@ -18,6 +18,8 @@ enum Equipment {
   gluteBand,
   @JsonValue("ring")
   ring,
+  @JsonValue("all")
+  all,
   @JsonValue("none")
   none
 }

@@ -9,7 +9,6 @@ import 'package:dawg/workout/player.dart';
 import 'package:dawg/workout/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:logger/logger.dart';
 
 void main() {

@@ -17,13 +17,16 @@ class Player {
       for (var i = 1; i <= exerciseW.sets; i++) {
         if (i > 1) {
           await announcer.announce("Continuing Exercise: ${exerciseW.exercise.name}");
+          if (exerciseW.exercise.alt) {
+            await announcer.announce("Change sides");
+          }
+          await announcer.announceDelay(5);
+          await announcer.announceCountdown(5); // add this as setting between exercises
         }
+
         await announcer.announce("Set $i of ${exerciseW.sets}. Ready go!");
         await announcer.announceDelay(max(5, exerciseW.setDuration - 5));
         await announcer.announceCountdown(5);
-        if (i != exerciseW.sets && exerciseW.exercise.alt) {
-          await announcer.announce("Change sides");
-        }
       }
 
       await announcer.announce("Finished Exercise: ${exerciseW.exercise.name}");

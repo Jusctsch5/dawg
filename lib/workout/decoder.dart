@@ -1,11 +1,14 @@
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
+import 'package:logger/logger.dart';
 
 import '../common_defines.dart';
 import 'exercisew.dart';
 import 'workout.dart';
 
 class Decoder {
+  final log = Logger();
+
   /// Obtains a new exercise from list of exercises, where "new" means not present in excluded.
   /// If one is not available, return a random exercise.
   Exercise getNewExerciseFromListOrRandom(List<Exercise> exercises, List<Exercise> excluded) {
@@ -19,10 +22,6 @@ class Decoder {
   }
 
   Workout generateWorkout(WorkoutConfiguration woConfig, ExerciseConfiguration exConfig) {
-    // var filter = ExerciseFilterByGroups(equipment: woConfig.equipment, muscleGroups: woConfig.muscleGroups);
-    // var totalExercises = exConfig.filterExercisesByGroups(filter);
-    // exercises.shuffle();
-
     List<Exercise> exercisesForWorkout = [];
     List<ExerciseW> exercisesWForWorkout = [];
     var currentExerciseLengthSeconds = 0;
@@ -33,12 +32,15 @@ class Decoder {
     // Find an exercise for each muscle to work.
     while (currentExerciseLengthSeconds < woConfig.durationSeconds) {
       for (var muscleToWork in musclesToWork) {
-        var muscleExercises = exConfig.filterExercises(ExerciseFilter(muscle: muscleToWork));
+        var filter = ExerciseFilterByGroups(equipment: woConfig.equipment, muscle: muscleToWork);
+        var muscleExercises = exConfig.filterExercisesByGroups(filter);
         var exerciseDef = getNewExerciseFromListOrRandom(muscleExercises, exercisesForWorkout);
         var exercisew = ExerciseW(exerciseDef, woConfig.setDurationSeconds, woConfig.setPerExercise);
         exercisesForWorkout.add(exerciseDef);
         exercisesWForWorkout.add(exercisew);
         currentExerciseLengthSeconds += exercisew.totalDuration;
+
+        log.i("Adding exercise:${exerciseDef.name} to workout (musclegroup:${exerciseDef.muscleGroups}");
       }
     }
 
@@ -51,6 +53,8 @@ class Decoder {
       exercisesForWorkout.add(exerciseDef);
       exercisesWForWorkout.add(exercisew);
       currentExerciseLengthSeconds += exercisew.totalDuration;
+
+      log.i("Adding exercise:${exerciseDef.name} to workout (musclegroup:${exerciseDef.muscleGroups}");
     }
 
     return Workout(woConfig.name, exercisesWForWorkout, woConfig.muscleGroups, woConfig.startDelaySeconds, woConfig.finishDelaySeconds,
