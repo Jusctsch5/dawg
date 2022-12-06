@@ -12,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -77,8 +79,38 @@ class _MyHomePageState extends State<MyHomePage> {
     return workouts;
   }
 
+  Future<List<WorkoutConfiguration>> _refreshWorkoutConfigsAsync() async {
+    List<WorkoutConfiguration> wcs = [];
+
+    final manifestContent = await rootBundle.loadString('AssetManifest.json');
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+    final workoutPaths = manifestMap.keys.where((String key) => key.contains('data/workout/')).toList();
+    for (var workoutPath in workoutPaths) {
+      log.d("Parsing new workout path $workoutPath");
+
+      var workoutJson = jsonDecode(await rootBundle.loadString(workoutPath));
+      var workoutConfig = WorkoutConfiguration.fromJson(workoutJson);
+      wcs.add(workoutConfig);
+    }
+
+    return wcs;
+  }
+
+  Future<ExerciseConfiguration> _refreshExerciseConfigsAsync() async {
+    final exConfigJson = jsonDecode(await rootBundle.loadString('assets/data/exercise/exercise_configuration.json'));
+    var exConfig = ExerciseConfiguration.fromJson(exConfigJson);
+
+    return exConfig;
+  }
+
   void _playWorkout(Workout workout) async {
     player.playWorkout(workout, announcer);
+  }
+
+  Future<void> _processWorkoutConfig(WorkoutConfiguration wc, ExerciseConfiguration ec) async {
+    var decoder = Decoder();
+    var workout = decoder.generateWorkout(wc, ec);
+    await player.playWorkout(workout, announcer);
   }
 
   @override
@@ -96,8 +128,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
             return Scaffold(
               appBar: AppBar(
-                // Here we take the value from the MyHomePage object that was created by
-                // the App.build method, and use it to set our appbar title.
                 title: Text(widget.title),
               ),
               body: Center(
