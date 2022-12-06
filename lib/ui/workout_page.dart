@@ -1,3 +1,4 @@
+import 'package:dawg/configuration/workout_configuration.dart';
 import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/player.dart';
 import 'package:dawg/workout/workout.dart';
@@ -7,7 +8,7 @@ import 'package:logger/logger.dart';
 class WorkoutOption extends StatefulWidget {
   WorkoutOption({Key? key, required this.workout, required this.optionName, required this.optionValue}) : super(key: key);
 
-  Workout workout;
+  WorkoutConfiguration workout;
   final String optionName;
   final String optionValue;
 
@@ -45,7 +46,7 @@ class WorkoutPage extends StatefulWidget {
   // always marked "final".
 
   final String title;
-  final Workout workout;
+  final WorkoutConfiguration workout;
 
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();

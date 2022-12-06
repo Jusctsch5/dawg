@@ -55,28 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
   final log = Logger();
   final announcer = AnnouncerTts();
   final player = Player();
+  late ExerciseConfiguration ec;
 
-  Future<List<Workout>> _refreshWorkoutsAsync() async {
-    List<Workout> workouts = [];
-
-    var decoder = Decoder();
-
-    final exConfigJson = jsonDecode(await rootBundle.loadString('assets/data/exercise/exercise_configuration.json'));
-    var exConfig = ExerciseConfiguration.fromJson(exConfigJson);
-
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    final workoutPaths = manifestMap.keys.where((String key) => key.contains('data/workout/')).toList();
-    for (var workoutPath in workoutPaths) {
-      log.d("Parsing new workout path $workoutPath");
-
-      var workoutJson = jsonDecode(await rootBundle.loadString(workoutPath));
-      var workoutConfig = WorkoutConfiguration.fromJson(workoutJson);
-      var workout = decoder.generateWorkout(workoutConfig, exConfig);
-      workouts.add(workout);
-    }
-
-    return workouts;
+  Future<List<WorkoutConfiguration>> _refreshWorkoutsAsync() async {
+    ec = await _refreshExerciseConfigsAsync();
+    var workoutConfigs = await _refreshWorkoutConfigsAsync();
+    return workoutConfigs;
   }
 
   Future<List<WorkoutConfiguration>> _refreshWorkoutConfigsAsync() async {
@@ -99,15 +83,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<ExerciseConfiguration> _refreshExerciseConfigsAsync() async {
     final exConfigJson = jsonDecode(await rootBundle.loadString('assets/data/exercise/exercise_configuration.json'));
     var exConfig = ExerciseConfiguration.fromJson(exConfigJson);
+    for (var exercise in exConfig.exercises) {
+      log.d("New exercise ${exercise.name}");
+    }
+
+    log.d("New ExerciseConfig with exercises:${exConfig.exercises.length}");
 
     return exConfig;
   }
 
-  void _playWorkout(Workout workout) async {
-    player.playWorkout(workout, announcer);
-  }
-
-  Future<void> _processWorkoutConfig(WorkoutConfiguration wc, ExerciseConfiguration ec) async {
+  Future<void> _processWorkoutConfig(WorkoutConfiguration wc) async {
     var decoder = Decoder();
     var workout = decoder.generateWorkout(wc, ec);
     await player.playWorkout(workout, announcer);
@@ -115,14 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Workout>>(
+    return FutureBuilder<List<WorkoutConfiguration>>(
         future: _refreshWorkoutsAsync(),
-        builder: (context, AsyncSnapshot<List<Workout>> snapshot) {
+        builder: (context, AsyncSnapshot<List<WorkoutConfiguration>> snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
           } else {
-            var workouts = snapshot.data;
-            if (workouts == null) {
+            var workoutConfigs = snapshot.data;
+            if (workoutConfigs == null) {
               return const CircularProgressIndicator();
             }
 
@@ -136,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Scrollbar(
                       child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: workouts.length,
+                          itemCount: workoutConfigs.length,
                           itemBuilder: (context, index) {
                             return ListTile(
                                 onTap: () {
@@ -144,17 +129,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => WorkoutPage(title: workouts[index].name, workout: workouts[index])),
+                                        builder: (context) =>
+                                            WorkoutPage(title: workoutConfigs[index].name, workout: workoutConfigs[index])),
                                   );
                                 },
-                                title: Text(workouts[index].name),
-                                subtitle: Text("Duration: ${workouts[index].durationMinutes} Minutes"),
+                                title: Text(workoutConfigs[index].name),
+                                subtitle: Text("Duration: ${workoutConfigs[index].durationMinutes} Minutes"),
                                 //trailing: Column(children: const [Icon(Icons.play_arrow)]));
                                 trailing: IconButton(
                                     icon: const Icon(Icons.play_arrow),
                                     tooltip: 'Play Workout',
                                     onPressed: () {
-                                      _playWorkout(workouts[index]);
+                                      _processWorkoutConfig(workoutConfigs[index]);
                                     }));
                           }),
                     ),
