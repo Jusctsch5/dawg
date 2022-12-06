@@ -1,9 +1,0 @@
-{
-    "name": "Dynamic Workout",
-    "muscleGroups": ["arms", "legs", "abdominals"],
-    "durationMinutes": 20,
-    "startDelay": 20,
-    "finishDelay": 60,
-    "setDurationSeconds": 30,
-    "setPerExercise": 3
-}
