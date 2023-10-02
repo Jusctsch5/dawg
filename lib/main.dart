@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
@@ -64,24 +65,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<List<WorkoutConfiguration>> _refreshWorkoutConfigsAsync() async {
-    List<WorkoutConfiguration> wcs = [];
+    log.d("Loading Workouts");
 
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    final workoutPaths = manifestMap.keys.where((String key) => key.contains('data/workout/')).toList();
-    for (var workoutPath in workoutPaths) {
-      log.d("Parsing new workout path $workoutPath");
-
-      var workoutJson = jsonDecode(await rootBundle.loadString(workoutPath));
-      var workoutConfig = WorkoutConfiguration.fromJson(workoutJson);
-      wcs.add(workoutConfig);
+    var workoutJson = jsonDecode(await rootBundle.loadString('data/workout/workout_configuration.json'));
+    var workouts = WorkoutConfiguration.getFromJsonList(workoutJson);
+    for (var workout in workouts) {
+      log.d("New Workout ${workout.name}");
     }
 
-    return wcs;
+    return workouts;
   }
 
   Future<ExerciseConfiguration> _refreshExerciseConfigsAsync() async {
-    final exConfigJson = jsonDecode(await rootBundle.loadString('assets/data/exercise/exercise_configuration.json'));
+    final exConfigJson = jsonDecode(await rootBundle.loadString('data/exercise/exercise_configuration.json'));
     var exConfig = ExerciseConfiguration.fromJson(exConfigJson);
     for (var exercise in exConfig.exercises) {
       log.d("New exercise ${exercise.name}");

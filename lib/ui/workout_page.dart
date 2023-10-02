@@ -5,6 +5,8 @@ import 'package:dawg/workout/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
+final log = Logger();
+
 class WorkoutOption extends StatefulWidget {
   WorkoutOption({Key? key, required this.workout, required this.optionName, required this.optionValue}) : super(key: key);
 
@@ -24,7 +26,7 @@ class _WorkoutOptionState extends State<WorkoutOption> {
         subtitle: Center(
           child: TextField(
             onTap: () {
-              print("WOOHOO");
+              log.d("Looking at workout option ${widget.optionName}");
             },
             decoration: InputDecoration(border: const OutlineInputBorder(), hintText: widget.optionValue),
           ),

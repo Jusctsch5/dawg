@@ -53,4 +53,10 @@ class WorkoutConfiguration {
         setPerExercise = json.containsKey('setPerExercise') ?
           json['setPerExercise'] :
           3;
+
+  static List<WorkoutConfiguration> getFromJsonList(Map<String, dynamic> json) {
+    List<WorkoutConfiguration> workouts = List<WorkoutConfiguration>.from(json['workouts'].map((x) => WorkoutConfiguration.fromJson(x)));
+    return workouts;
+  }
 }
+
