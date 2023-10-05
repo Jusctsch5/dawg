@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
@@ -58,7 +58,21 @@ class _MyHomePageState extends State<MyHomePage> {
   final player = Player();
   late ExerciseConfiguration ec;
 
+
+  Future<String> readFileFromBundle(String assetName) async {
+    try {
+      final String fileContents = await rootBundle.loadString(assetName);
+      return fileContents;
+    } catch (e) {
+      // Handle any errors that might occur during file reading
+      log.d('Error reading file: $e');
+      return '';
+    }
+  }
+
   Future<List<WorkoutConfiguration>> _refreshWorkoutsAsync() async {
+    log.d("_refreshWorkoutsAsync ");
+
     ec = await _refreshExerciseConfigsAsync();
     var workoutConfigs = await _refreshWorkoutConfigsAsync();
     return workoutConfigs;
@@ -67,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<List<WorkoutConfiguration>> _refreshWorkoutConfigsAsync() async {
     log.d("Loading Workouts");
 
-    var workoutJson = jsonDecode(await rootBundle.loadString('data/workout/workout_configuration.json'));
+    var workoutJson = jsonDecode(await readFileFromBundle('assets/data/workout/workout_configuration.json'));
     var workouts = WorkoutConfiguration.getFromJsonList(workoutJson);
     for (var workout in workouts) {
       log.d("New Workout ${workout.name}");
@@ -77,7 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<ExerciseConfiguration> _refreshExerciseConfigsAsync() async {
-    final exConfigJson = jsonDecode(await rootBundle.loadString('data/exercise/exercise_configuration.json'));
+    log.d("_refreshExerciseConfigsAsync ");
+
+    final exConfigJson = jsonDecode(await rootBundle.loadString('assets/data/exercise/exercise_configuration.json'));
+    log.d("_refreshExerciseConfigsAsync ");
+
     var exConfig = ExerciseConfiguration.fromJson(exConfigJson);
     for (var exercise in exConfig.exercises) {
       log.d("New exercise ${exercise.name}");
@@ -100,10 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
         future: _refreshWorkoutsAsync(),
         builder: (context, AsyncSnapshot<List<WorkoutConfiguration>> snapshot) {
           if (!snapshot.hasData) {
+            log.d("No snapshot data yet for workout configuration");
             return const CircularProgressIndicator();
           } else {
             var workoutConfigs = snapshot.data;
             if (workoutConfigs == null) {
+              log.d("No snapshot data yet for workout configuration");
               return const CircularProgressIndicator();
             }
 
