@@ -18,6 +18,8 @@ enum Equipment {
   gluteBand,
   @JsonValue("ring")
   ring,
+  @JsonValue("dumbbell")
+  dumbbell,
   @JsonValue("all")
   all,
   @JsonValue("none")
@@ -79,7 +81,8 @@ enum Muscle {
   abs,
   @JsonValue("obliques")
   obliques,
-
+  @JsonValue("back")
+  back,
   @JsonValue("adductor")
   adductor,
   @JsonValue("glutes")

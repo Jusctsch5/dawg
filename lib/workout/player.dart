@@ -4,6 +4,17 @@ import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/workout.dart';
 
 class Player {
+  /*
+  The Workout Player object takes a workout and instructs the announcer on how to play it.
+  The Player is also responsible for recording and manipulating the current state of the exercise
+   */
+  // final Workout workout;
+  int position = 0;
+  int duration = 0;
+
+  // Player(this.workout);
+  Player();
+
   Future playWorkout(Workout workout, Announcer announcer) async {
     await announcer.announce("Starting Workout: ${workout.name}");
     await announcer.announce("This workout will take approximately ${workout.durationMinutes} minutes ");

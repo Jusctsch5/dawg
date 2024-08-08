@@ -10,11 +10,19 @@
         },
         {
             "name": "Curl to Front Squat",
-            "description": "Standing up straight with arms at sides, holding bands. Hook bands on feet. Perform a dumbell curl and squat down, keeping back straight.",
+            "description": "Standing up straight with arms at sides, holding bands. Hook bands on feet. Perform a dumbbell curl and squat down, keeping back straight.",
             "id": "598ae548-4fca-445b-a5d1-1a64b0ffe3ab",
             "equipment":["resistanceBand"],
             "muscleGroups": ["legs", "arms"],
             "muscles":["glutes", "hipflexors", "quads", "abs", "calves", "biceps", "adductor"]
+        },
+        {
+            "name": "Dumbbell Squat",
+            "description": "Standing up straight with in front, dumbbells against chest. Squat down, keeping back straight.",
+            "id": "caf7a2b6-e8e5-403e-98d5-ea0a4f1b849d",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["legs"],
+            "muscles":["glutes", "hipflexors"]
         },
         {
             "name": "High Downward Oblique Swing",
@@ -175,12 +183,60 @@
             "muscles": ["biceps"]
         },
         {
-            "name": "Shoulder Lat Raise",
+            "name": "Bicep Curls with Dumbbells",
+            "description": "Standing with arms at sides. Perform Dumbbell curls.",
+            "id": "fcaa78a3-7d70-4c04-9f1e-b83a6e5b3dc7",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["arms"],
+            "muscles": ["biceps"]
+        },
+        {
+            "name": "Dumbbell Deadlift",
+            "description": "Standing with straight arms at sides, slightly in front of body. Drop front of body, pushing bottom back. Keep back straight and go down and back up",
+            "id": "795eaae6-b395-42cd-b53c-be3a9cb73713",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["arms"],
+            "muscles": ["glutes", "quads", "back"]
+        },
+        {
+            "name": "Behind Head Tricep Extension",
+            "description": "bending at the elbow to lower the dumbbell behind your head. Keep your upper arms in the same place, only allowing your forearms to move. Once you have lowered the dumbbell as far as possible, squeeze your triceps to extend your arms and return the dumbbell to the starting position",
+            "id": "795eaae6-b395-42cd-b53c-be3a9cb73715",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps", "back"]
+        },
+        {
+            "name": "Shoulder Lateral Raise",
             "description": "Standing with arms down at sides. Pull up to t-pose.",
             "id": "eb7e70e0-485d-45f7-a054-2eadb74dcdcc",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
             "muscles": ["traps", "deltoids"]
+        },
+        {
+            "name": "Shoulder Lateral Raise with Dumbbells",
+            "description": "Standing with arms down at sides. Pull up to t-pose.",
+            "id": "c280fae2-65ec-4fda-9192-aaf1d7bbce1b",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["arms"],
+            "muscles": ["traps", "deltoids"]
+        },
+        {
+            "name": "Chest Press with Dumbbells",
+            "description": "Lying down, push weights above your body, lifting them up and down to a comfortable level.",
+            "id": "c280fae2-65ec-4fda-9192-aaf1d7bbce1c",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["arms"],
+            "muscles": ["pecs", "deltoids", "biceps"]
+        },
+        {
+            "name": "Tricep Kickback",
+            "description": "Stand with your feet hip-distance apart, knees slightly bent. Let your arms hang down at your sides. Hinge forward at the waist so that your chest is tilted at a 45-degree angle toward the ground. Perform a row by pulling your elbows up toward the sky, hugging them into your sides, and bringing the weights up and back. Repeat.",
+            "id": "d3204a0c-acc9-46eb-a691-51fdbe219e56",
+            "equipment":["dumbbell"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps", "deltoids"]
         },
         {
             "name": "Side Bends",
@@ -224,7 +280,7 @@
         {
             "name": "Jackknife",
             "description": "Lie down with arms and legs outstretched. Simultaneously raise torso and arms to touch them together, then go back down",
-            "id": "17cefdfc-afba-4bad-bd68-14fe20b6d8e8",
+            "id": "17cefdfc-afba-4bad-bd68-14fe20b6d8f8",
             "muscleGroups": ["abdominals"],
             "muscles": ["abs", "pecs"]
         },
@@ -245,7 +301,7 @@
         {
             "name": "Jumping Jacks with Glute Band",
             "description": "Place glute band between legs, perform jumping jacks.",
-            "id": "1cc45ded-3803-45ed-bc2c-5fde86514327",
+            "id": "1cc45ded-3803-45ed-bc2f-5fde86514327",
             "equipment":["gluteBand"],
             "muscleGroups": ["legs"],
             "muscles": ["glutes", "quads", "hipflexors"]
@@ -253,7 +309,7 @@
         {
             "name": "Lateral Band Walk with Glute Band",
             "description": "Place glute loop between legs, side step, keeping legs never further than shoulder width apart.",
-            "id": "1cc4fded-3803-45ed-bc2c-5fde86514327",
+            "id": "1cc4fded-3803-45ed-bc2d-5fde86514327",
             "equipment":["gluteBand"],
             "muscleGroups": ["legs"],
             "muscles": ["glutes", "quads"]
@@ -261,7 +317,7 @@
         {
             "name": "Fire Hydrant",
             "description": "Go down on hands and knees, place glute band just above knees. Engaging glutes and outer thighs, lift knee out to the side without shifting hips. Change sides between sets",
-            "id": "1cd45ded-3803-45ed-bc2c-5fde86514327",
+            "id": "1cd45ded-3803-45ed-bc2c-5fde86515327",
             "alternateSidesBetweenSets": true,
             "equipment":["gluteBand"],
             "muscleGroups": ["legs"],

@@ -33,6 +33,14 @@
       "finishDelay": 60
     },
     {
+      "name": "Dynamic Arms Workout (Dumbbell and Ring)",
+      "muscleGroups": ["arms"],
+      "equipment":["ring", "dumbbell"],
+      "durationMinutes": 20,
+      "startDelay": 20,
+      "finishDelay": 60
+    },
+    {
       "name": "Dynamic Arms Workout (No suspended bands)",
       "muscleGroups": ["arms"],
       "equipment":["resistanceBand", "gluteBand", "ring"],
