@@ -29,7 +29,7 @@ Future<void> testPlayer() async {
 
   var workout = Workout("Example Workout", [ex1, ex2, ex3], workConfig.muscleGroups, workConfig.startDelaySeconds, workConfig.finishDelaySeconds, workConfig.durationMinutes);
   var player = Player();
-  var announcer = AnnouncerTts();
+  var announcer = AnnouncerLog();
 
   player.playWorkout(workout, announcer);
   inspect(workout);

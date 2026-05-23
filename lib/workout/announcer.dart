@@ -1,48 +1,42 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dawg/workout/tts/speech_factory.dart';
 
-abstract class Announcer
-{
-
+abstract class Announcer {
   Future announce(String text);
   Future announceDelay(int secs);
   Future announceCountdown(int from);
 }
 
 class AnnouncerTts extends Announcer {
-  FlutterTts flutterTts;
+  AnnouncerTts() : _speech = createPlatformSpeech();
 
-  AnnouncerTts() :
-    flutterTts = FlutterTts();
+  final PlatformSpeech _speech;
 
   @override
   Future announce(String text) async {
-      await flutterTts.speak(text);
-      await flutterTts.awaitSpeakCompletion(true);
+    await _speech.speak(text);
   }
 
   @override
   Future announceDelay(int secs) async {
-      await Future.delayed(Duration(seconds: secs));
+    await Future.delayed(Duration(seconds: secs));
   }
 
   @override
   Future announceCountdown(int from) async {
     for (; from > 0; from--) {
-      await flutterTts.speak(from.toString());
-      await flutterTts.awaitSpeakCompletion(true); // waits about a second inbetween
+      await _speech.speak(from.toString());
     }
   }
 }
 
 class AnnouncerLog extends Announcer {
-
   AnnouncerLog();
 
   @override
   Future announce(String text) async {
-      print(text);
+    print(text);
   }
 
   @override

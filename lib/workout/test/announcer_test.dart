@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 Future<void> testAnnouncer() async {
-  var announcer = AnnouncerTts();
+  var announcer = AnnouncerLog();
 
   await announcer.announce("hello world wii");
   for (int i = 1; i <= 3; i++) {
