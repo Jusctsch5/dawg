@@ -103,10 +103,6 @@ class Player {
             if (_cancelled) return;
           }
 
-          final setPositionCue = 'Get into position for ${exerciseW.exercise.name}';
-          await announcer.announce(setPositionCue);
-          if (_cancelled) return;
-
           await _runDelay(
             5,
             WorkoutPlaybackState(
@@ -115,7 +111,7 @@ class Player {
               setNumber: setNumber,
               setCount: exerciseW.sets,
               segment: WorkoutSegment.preparingExercise,
-              statusLabel: setPositionCue,
+              statusLabel: 'Set $setNumber of ${exerciseW.sets}',
             ),
             notify,
           );
