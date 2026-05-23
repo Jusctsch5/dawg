@@ -2,7 +2,7 @@
     "exercises": [
         {
             "name": "High Standing Crunch",
-            "description": "Using high suspended bands from standing position, back to the wall, bring ribcage down, incidentally pulling the bands down",
+            "description": "Stand with your back against the wall and hold the suspended bands at shoulder height. Crunch your ribcage down toward your hips while pulling the bands down. Return to standing tall with control.",
             "id": "7755798c-647c-45c3-9c05-a434699c68bc",
             "equipment":["suspendedBand"],
             "muscleGroups": ["abdominals"],
@@ -10,7 +10,7 @@
         },
         {
             "name": "Curl to Front Squat",
-            "description": "Standing up straight with arms at sides, holding bands. Hook bands on feet. Perform a dumbell curl and squat down, keeping back straight.",
+            "description": "Stand on the band with feet shoulder-width apart, holding the ends at your sides. Curl your hands toward your shoulders, then squat down while keeping your chest up and back straight. Stand back up and lower your arms to complete the rep.",
             "id": "598ae548-4fca-445b-a5d1-1a64b0ffe3ab",
             "equipment":["resistanceBand"],
             "muscleGroups": ["legs", "arms"],
@@ -18,7 +18,7 @@
         },
         {
             "name": "High Downward Oblique Swing",
-            "description": "Using high suspended bands from standing position, rotate body while pulling bands across. Should result in a full 180 rotation. Switch between sets",
+            "description": "Stand facing the anchor with the bands at shoulder height, hands together on the handles. Rotate your torso and pull the bands diagonally across your body in a controlled arc. Return to center. Switch sides each set.",
             "id": "e968f38d-b35f-44e0-b77c-4ec88812c9da",
             "alternateSidesBetweenSets": true,
             "equipment":["suspendedBand"],
@@ -27,7 +27,7 @@
         },
         {
             "name": "Middle Pallof Press",
-            "description": "Using middle suspended bands, standing with arms out, grab both band handholds and push out at an angle. Band should never be slack. Switch sides between sets",
+            "description": "Stand sideways to the anchor with the band at chest height, both hands on the handle at your sternum. Press the band straight out in front of you, keeping the band taut and resisting rotation. Bring your hands back to your chest. Switch sides each set.",
             "id": "d20ca7bb-f653-4aa9-9c06-6c0f87304631",
             "alternateSidesBetweenSets": true,
             "equipment":["suspendedBand"],
@@ -36,7 +36,7 @@
         },
         {
             "name": "Middle 180 Twists",
-            "description": "Using middle suspended bands, standing with arms in front, grab both band handholds with both hands and make a large combined fist. Rotate midsection from 90 degrees right to 90 degress left, and back. Arms should remain straight in front",
+            "description": "Face the anchor with the band at mid-torso height, both hands together on the handle, arms straight in front. Rotate your torso left and right through a full range while keeping your hips facing forward and arms extended.",
             "id": "4f051d1d-00e5-49e7-a69e-3d777fd218f7",
             "equipment":["suspendedBand"],
             "muscleGroups": ["abdominals"],
@@ -44,7 +44,7 @@
         },
         {
             "name": "Low Downward Oblique Swing",
-            "description": "Using low suspended bands from standing position, with fists together, rotate body while pulling bands across and up body. Arms should remain straight. Switch between sets",
+            "description": "Stand with the bands anchored low, hands together on the handles at hip height. Rotate your torso and pull the bands diagonally up and across your body with straight arms. Return to center. Switch sides each set.",
             "alternateSidesBetweenSets": true,
             "id": "eb53860f-a1e6-4e9f-802a-24cb692d47e7",
             "equipment":["suspendedBand"],
@@ -53,7 +53,7 @@
         },
         {
             "name": "Low Deadbug Dual Knee Ins",
-            "description": "Lying down with legs opposite bands and hands above body gripping low suspended bands, bring knees up to chest and back to lying down position",
+            "description": "Lie on your back with hands gripping low anchor points above your shoulders. Start with knees bent at ninety degrees. Extend one leg out while the opposite arm reaches overhead, then return and alternate. Keep your lower back pressed to the floor.",
             "id": "70415c22-73ff-44b6-88ee-375fc9622476",
             "equipment":["resistanceBand"],
             "muscleGroups": ["abdominals", "legs"],
@@ -61,7 +61,7 @@
         },
         {
             "name": "Hex Squats",
-            "description": "Standing up straight with arms at sides. Hook bands on feet. Bend knees to chair position and back.",
+            "description": "Stand on the band with feet shoulder-width apart, holding the ends at your shoulders or chest. Squat down until your thighs are parallel to the floor, like sitting into a chair. Drive through your heels to stand back up.",
             "id": "3d7f94b9-344e-47b7-a2f0-770cf49e8718",
             "equipment":["resistanceBand"],
             "muscleGroups": ["abdominals", "legs"],
@@ -69,7 +69,7 @@
         },
         {
             "name": "Romanian Deadlift",
-            "description": "Standing up straight with arms at sides. Hook bands on feet. Bend and touch toes. Keep back straight and head up.",
+            "description": "Stand on the band with feet hip-width apart, holding the ends in front of your thighs. Hinge at the hips and push your glutes back, lowering your hands toward your shins while keeping your back flat. Return to standing by squeezing your glutes.",
             "id": "dfa835d5-f69b-4839-8be9-f26dd5eecb8e",
             "equipment":["resistanceBand"],
             "muscleGroups": ["abdominals", "legs"],
@@ -77,7 +77,7 @@
         },
         {
             "name": "Glute Kickbacks",
-            "description": "Down on all fours. Grab band with one hand, attach band to corresponding foot. Kick back with banded foot. Alternate between sets",
+            "description": "Start on hands and knees. Loop the band around one foot and hold it with the opposite hand. Kick that foot straight back, squeezing your glute at the top. Return with control. Switch legs each set.",
             "id": "adde769c-42b8-4cc1-807a-9547be75bace",
             "alternateSidesBetweenSets": true,
             "equipment":["resistanceBand"],
@@ -86,7 +86,7 @@
         },
         {
             "name": "Lying Leg Extensions",
-            "description": "Laying down, hook both bands to feet. Lay the band under you and grab it. Take legs and send them vertical, making an L.",
+            "description": "Lie on your back with the band looped around both feet and held in your hands for tension. Extend both legs straight up toward the ceiling, then lower them slowly without arching your lower back.",
             "id": "16200201-9302-450f-8ed3-fc6ca1d0c439",
             "equipment":["resistanceBand"],
             "muscleGroups": ["legs"],
@@ -94,7 +94,7 @@
         },
         {
             "name": "Glute Bridge",
-            "description": "Laying down, holding bands in hands, tight over chest. Bring torso up.",
+            "description": "Lie on your back with knees bent and feet flat. Hold the band across your hips with both hands for added resistance. Drive your hips up until your body forms a straight line from shoulders to knees. Squeeze your glutes at the top, then lower with control.",
             "id": "1cc41dbd-3803-45ed-bc2c-5fde86514327",
             "equipment":["resistanceBand"],
             "muscleGroups": ["abdominals"],
@@ -102,7 +102,7 @@
         },
         {
             "name": "Leg Lifts",
-            "description": "Standing up, with one band hooked on a leg and the other under the other foot. Extend leg out to the side. Alternate between sets",
+            "description": "Stand on the band with one foot and loop the other end around your opposite ankle. Hold something for balance if needed. Lift the banded leg out to the side, keeping your torso upright. Lower with control. Switch legs each set.",
             "id": "203ac060-a815-4e62-bc01-f830dbcfd0d2",
             "alternateSidesBetweenSets": true,
             "equipment":["resistanceBand"],
@@ -111,7 +111,7 @@
         },
         {
             "name": "Lunge with Band",
-            "description": "One leg in front, one back. Band in both hands, looped on front leg. Lunge down and back up. Alternate legs",
+            "description": "Stand with one foot forward on the band, holding the ends at your shoulders. Step into a lunge, lowering your back knee toward the floor. Push through your front heel to return to standing. Alternate legs each set.",
             "id": "0e310266-3e16-43e9-88f3-e1e2be1f900d",
             "alternateSidesBetweenSets": true,
             "equipment":["resistanceBand"],
@@ -120,7 +120,7 @@
         },
         {
             "name": "Seated Rows",
-            "description": "Sit down with legs out. Hook bands on feet. Pull bands back to waist with rowing motion.",
+            "description": "Sit on the floor with legs straight. Loop the band around both feet and hold one end in each hand. Sit tall, pull the band toward your lower ribs, squeezing your shoulder blades together, then extend your arms forward.",
             "id": "0bf8089b-32b8-42b5-b589-c850453143b5",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -128,7 +128,7 @@
         },
         {
             "name": "Seated Wide Rows",
-            "description": "Sit down with legs out. Hook bands on feet. Pull to upper chest with rowing motion.",
+            "description": "Sit on the floor with legs straight, band looped around your feet. With a wide grip on the band, pull toward your upper chest, leading with your elbows out to the sides. Slowly extend your arms back out.",
             "id": "0bf8089b-32b8-42b5-b589-c850453143b7",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -136,7 +136,7 @@
         },
         {
             "name": "High to Low Rows",
-            "description": "Get down on one knee, grasp high suspended bands. Pull down to upper chest with rowing motion.",
+            "description": "Kneel on one knee facing the high anchor, both hands on the suspended band handles. Pull the bands down toward your upper chest, squeezing your shoulder blades. Extend your arms back up with control.",
             "id": "0bf8089b-32b8-42b5-b589-c850453143b8",
             "equipment":["suspendedBand"],
             "muscleGroups": ["arms"],
@@ -144,15 +144,16 @@
         },
         {
             "name": "Alt Low Crossover",
-            "description": "Standing with arms down at sides. Hook bands on one or more feet. Perform dumbbell curl across body.",
+            "description": "Stand on the band with feet shoulder-width apart. Hold one end in your working hand at your side. Curl across your body toward the opposite shoulder, then lower slowly. Switch arms each set if alternating.",
             "id": "0e310266-3e16-43e9-88f3-e1e2be1f900e",
+            "alternateSidesBetweenSets": true,
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
             "muscles": ["biceps"]
         },
         {
             "name": "Pull Aparts",
-            "description": "Standing with arms out, level with shoulders. Pull to t-pose. Band should never be slack.",
+            "description": "Hold the band at shoulder height with arms extended in front of you, shoulder-width apart. Pull the band apart until your arms reach a T shape at shoulder level. Keep tension on the band throughout. Return to the start.",
             "id": "21755c9c-aadb-4647-bd31-d210aa012f29",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -160,7 +161,7 @@
         },
         {
             "name": "High Crossover",
-            "description": "Standing with arms in front. Hook bands on one or more feet. Pull up to shoulder height with straight arms in front",
+            "description": "Stand on the band with feet shoulder-width apart, arms straight in front at hip height, holding the band. With straight arms, raise the band up to shoulder height, then lower back down with control.",
             "id": "d18bf756-f363-47a0-829e-3d2817c44552",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -168,7 +169,7 @@
         },
         {
             "name": "Bicep Curls",
-            "description": "Standing with arms at sides. Hook bands on one or more feet. Perform Dumbbell curls.",
+            "description": "Stand on the band with feet shoulder-width apart, holding one end in each hand at your sides, palms forward. Curl your hands toward your shoulders, squeezing your biceps at the top. Lower slowly.",
             "id": "18be59a8-56a4-4a28-bf72-4990a7a5f835",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -176,7 +177,7 @@
         },
         {
             "name": "Shoulder Lat Raise",
-            "description": "Standing with arms down at sides. Pull up to t-pose.",
+            "description": "Stand on the center of the band, holding the ends at your sides. With a slight bend in your elbows, raise your arms out to the sides until they reach shoulder height in a T shape. Lower with control.",
             "id": "eb7e70e0-485d-45f7-a054-2eadb74dcdcc",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -184,7 +185,7 @@
         },
         {
             "name": "Side Bends",
-            "description": "Standing with arms down at sides. lay band under both feet, hold one end of the band. perform a side bend, with the resting position providing tension to the band",
+            "description": "Stand on the center of the band with feet hip-width apart, holding one end in each hand at your sides. Bend sideways at the waist, keeping the band under tension, then return to standing upright. Keep the movement slow and controlled.",
             "id": "eb7e70e1-485d-45f7-a054-2eadb74dcdcc",
             "equipment":["resistanceBand"],
             "muscleGroups": ["abdominals"],
@@ -192,7 +193,7 @@
         },
         {
             "name": "Overhead Triceps Extension",
-            "description": "Standing with arms above. Hook bands on back foot, behind body. Pull up arms so they are straight.",
+            "description": "Stand on the band with your back foot, bringing the band behind you. Hold the ends overhead with elbows bent beside your head. Extend your arms straight up by straightening your elbows. Lower back to the bent position with control.",
             "id": "7c9b9a0e-bcfe-4ef6-8844-c33ee86ff834",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -200,7 +201,7 @@
         },
         {
             "name": "Arnold Press",
-            "description": "Standing with arms up in front of chest. Hook band on foot. Pull up to mostly straight arms, with elbows in front.",
+            "description": "Stand on the band with one foot, holding the ends at shoulder height, palms facing you. Press upward and rotate your palms forward as you extend your arms overhead. Reverse the motion on the way down.",
             "id": "72bce0ab-7f68-42df-9594-0f4f905b7d24",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -208,7 +209,7 @@
         },
         {
             "name": "Shoulder Press",
-            "description": "Standing with arms up along-side chest. Hook band on foot. Pull up to mostly straight arms, with elbows in alongside.",
+            "description": "Stand on the band with feet shoulder-width apart, hands at shoulder height, palms facing forward. Press the band straight overhead until your arms are nearly straight. Lower back to shoulder height with control.",
             "id": "b732171a-d81a-4b19-b742-d6434b046bdf",
             "equipment":["resistanceBand"],
             "muscleGroups": ["arms"],
@@ -216,35 +217,35 @@
         },
         {
             "name": "Push Ups",
-            "description": "On all fours, push up and down.",
+            "description": "Start in a high plank with hands slightly wider than shoulders. Lower your chest toward the floor, keeping your body in a straight line. Press back up to full arm extension.",
             "id": "17cefddc-afba-4bad-bd68-14fe20b6d8e8",
             "muscleGroups": ["arms", "abdominals"],
             "muscles": ["abs", "pecs", "deltoids", "triceps"]
         },
         {
             "name": "Jackknife",
-            "description": "Lie down with arms and legs outstretched. Simultaneously raise torso and arms to touch them together, then go back down",
+            "description": "Lie flat with arms overhead and legs straight. Simultaneously lift your shoulders and legs, reaching your hands toward your feet. Lower back down with control.",
             "id": "17cefdfc-afba-4bad-bd68-14fe20b6d8e8",
             "muscleGroups": ["abdominals"],
             "muscles": ["abs", "pecs"]
         },
         {
             "name": "Plank",
-            "description": "Lay on the floor with elbows. Keeping forearms and knees on the floor slowly raise yourself upwards.",
+            "description": "Start on forearms and toes, or forearms and knees for a modified plank. Keep your body in a straight line from head to heels. Hold steady and breathe. Do not let your hips sag or pike up.",
             "id": "17ceeddc-afba-4bad-bd68-14fe20b6d8e8",
             "muscleGroups": ["arms", "abdominals"],
             "muscles": ["abs", "pecs", "deltoids", "triceps", "adductor"]
         },
         {
             "name": "Spiderman Crunches",
-            "description": "On all fours, activate core and move one leg up to chest. alternate legs within each set.",
+            "description": "Start in a high plank on your hands. Drive one knee toward the same-side elbow, engaging your core. Return the foot to plank, then alternate legs throughout the set.",
             "id": "1cc45dbd-3803-45ed-bc2c-5fde86514327",
             "muscleGroups": ["abdominals"],
             "muscles": ["abs"]
         },
         {
             "name": "Jumping Jacks with Glute Band",
-            "description": "Place glute band between legs, perform jumping jacks.",
+            "description": "Place the glute band just above your knees or ankles. Perform jumping jacks, keeping tension on the band and knees tracking over your toes. Land softly.",
             "id": "1cc45ded-3803-45ed-bc2c-5fde86514327",
             "equipment":["gluteBand"],
             "muscleGroups": ["legs"],
@@ -252,7 +253,7 @@
         },
         {
             "name": "Lateral Band Walk with Glute Band",
-            "description": "Place glute loop between legs, side step, keeping legs never further than shoulder width apart.",
+            "description": "Place the glute band just above your knees in a quarter squat. Take small steps sideways, keeping tension on the band and knees pushed slightly outward. Do not let your feet get wider than shoulder width.",
             "id": "1cc4fded-3803-45ed-bc2c-5fde86514327",
             "equipment":["gluteBand"],
             "muscleGroups": ["legs"],
@@ -260,7 +261,7 @@
         },
         {
             "name": "Fire Hydrant",
-            "description": "Go down on hands and knees, place glute band just above knees. Engaging glutes and outer thighs, lift knee out to the side without shifting hips. Change sides between sets",
+            "description": "Start on hands and knees with the glute band just above your knees. Keeping your core tight and hips level, lift one knee out to the side as far as you can without rotating your torso. Lower with control. Switch legs each set.",
             "id": "1cd45ded-3803-45ed-bc2c-5fde86514327",
             "alternateSidesBetweenSets": true,
             "equipment":["gluteBand"],
@@ -269,7 +270,7 @@
         },
         {
             "name": "Clamshell",
-            "description": "Go down on side, place glute band just above knees, bent to 90 degrees. Prop head up on hand, rest it on biceps, or support yourself with lower arm. Engage core, keep feet pressed together, and drive top knee toward the ceiling as far as you can without compensating form. Changes sides between sets",
+            "description": "Lie on your side with knees bent at ninety degrees and the glute band just above your knees, feet together. Keeping your feet touching, open your top knee toward the ceiling like a clamshell. Lower with control. Switch sides each set.",
             "id": "2cd45ded-3803-45ed-bc2c-5fde86514327",
             "alternateSidesBetweenSets": true,
             "equipment":["gluteBand"],
@@ -278,7 +279,7 @@
         },
         {
             "name": "Overhead Ring Press",
-            "description": "Hold ring over head and press in and out",
+            "description": "Hold the ring overhead with both hands, elbows bent beside your head. Press outward against the ring's tension, then slowly release back to the starting position.",
             "id": "2cd45ded-3803-45ed-bc2c-5fde86514329",
             "equipment":["ring"],
             "muscleGroups": ["arms"],
@@ -286,7 +287,7 @@
         },
         {
             "name": "Ring Press",
-            "description": "Hold against between midsection and press in and out",
+            "description": "Hold the ring at chest height with both hands, elbows bent. Press outward against the ring, squeezing your chest and shoulders. Slowly return to the start.",
             "id": "2cd45ded-f803-45ed-bc2c-5fde86f1432e",
             "equipment":["ring"],
             "muscleGroups": ["arms"],
@@ -294,19 +295,164 @@
         },
         {
             "name": "Ring Bow Pull",
-            "description": "Stand with feet shoulder width apart and raise the ring in front of face and pull it as if drawing a bowstring",
+            "description": "Stand with feet shoulder-width apart, holding the ring in front of your face with both hands. Pull one hand back as if drawing a bowstring while the other arm stays extended. Return to center and alternate sides.",
             "id": "2ed45ded-f803-4eed-bc2c-5fde86f1432e",
+            "alternateSidesBetweenSets": true,
             "equipment":["ring"],
             "muscleGroups": ["arms"],
             "muscles": ["triceps"]
         },
         {
             "name": "Ring Back Press",
-            "description": "Stand with feet shoulder width apart. Put the ring behind back and press on it",
+            "description": "Stand with feet shoulder-width apart, ring positioned behind your upper back, both hands on the ring. Press outward by spreading your hands against the ring's tension. Release slowly.",
             "id": "2ed45ded-f803-45ed-bc2c-5fdf86f1432e",
             "equipment":["ring"],
             "muscleGroups": ["arms"],
             "muscles": ["rotatorcuff"]
+        },
+        {
+            "name": "Band Chest Press",
+            "description": "Anchor the band behind you at chest height, or stand on the band and run it behind your back. Hold the ends at chest height, elbows bent. Press forward until your arms are extended, then return with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901001",
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["arms", "abdominals"],
+            "muscles": ["pecs", "triceps", "deltoids"]
+        },
+        {
+            "name": "Band Chest Fly",
+            "description": "Anchor the band behind you at shoulder height. Step forward to create tension, arms extended out to your sides at shoulder level. Bring your hands together in front of your chest in a wide arc, squeezing your chest. Open back out with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901002",
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["arms", "abdominals"],
+            "muscles": ["pecs", "deltoids"]
+        },
+        {
+            "name": "Band Triceps Kickback",
+            "description": "Stand on the band with feet hip-width apart, hinge forward at the hips with a flat back, and hold the ends with elbows bent at your sides. Extend your arms straight back, squeezing your triceps at the top. Return to the bent position with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901003",
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps"]
+        },
+        {
+            "name": "Band Face Pull",
+            "description": "Anchor the band at face height. Hold the ends with arms extended in front of you. Pull the band toward your face, leading with your elbows out to the sides and squeezing your shoulder blades together. Extend your arms back out with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901004",
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["arms"],
+            "muscles": ["traps", "rotatorcuff", "deltoids"]
+        },
+        {
+            "name": "Standing Band Hamstring Curl",
+            "description": "Anchor the band low in front of you, or loop it around a fixed point. Stand facing the anchor and loop the band around one ankle. Curl your heel toward your glute, keeping your thighs still. Lower with control. Switch legs each set.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901005",
+            "alternateSidesBetweenSets": true,
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["legs"],
+            "muscles": ["hamstrings", "glutes"]
+        },
+        {
+            "name": "Band Calf Raise",
+            "description": "Stand on the center of the band with the balls of your feet, holding the ends at your sides or shoulders for added tension. Rise up onto your toes as high as you can, pause briefly, then lower your heels back down with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901006",
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["legs"],
+            "muscles": ["calves"]
+        },
+        {
+            "name": "Band Wood Chop",
+            "description": "Anchor the band high to one side. Stand sideways to the anchor, both hands on the handle at one hip. Pull the band diagonally down and across your body to the opposite hip, rotating through your core. Return with control. Switch sides each set.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901007",
+            "alternateSidesBetweenSets": true,
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["abdominals", "arms"],
+            "muscles": ["obliques", "abs", "deltoids"]
+        },
+        {
+            "name": "Band Good Morning",
+            "description": "Stand on the band with feet hip-width apart, loop the band behind your neck and hold the ends at your chest for tension. Hinge at the hips and push your glutes back, lowering your torso until it is nearly parallel to the floor. Return to standing by squeezing your glutes.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901008",
+            "equipment":["resistanceBand"],
+            "muscleGroups": ["legs", "abdominals"],
+            "muscles": ["hamstrings", "glutes", "hipflexors"]
+        },
+        {
+            "name": "Suspended Fallout",
+            "description": "Kneel facing the anchor with the suspended bands at shoulder height, arms straight, hands on the handles. Keeping your core tight, lean forward and extend your arms overhead as far as you can without losing a straight line from knees to shoulders. Pull back to the start.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901009",
+            "equipment":["suspendedBand"],
+            "muscleGroups": ["abdominals", "arms"],
+            "muscles": ["abs", "obliques", "deltoids"]
+        },
+        {
+            "name": "Suspended Row",
+            "description": "Hold the suspended band handles and lean back with arms extended, body in a straight plank from head to heels. Pull your chest toward the handles, squeezing your shoulder blades together. Lower back down with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-34567890100a",
+            "equipment":["suspendedBand"],
+            "muscleGroups": ["arms"],
+            "muscles": ["traps", "rotatorcuff", "biceps"]
+        },
+        {
+            "name": "Suspended Knee Tuck",
+            "description": "Start in a high plank with your feet in the suspended band handles. Keeping your shoulders over your hands, tuck your knees toward your chest, then extend your legs back to plank. Move with control and keep your core engaged.",
+            "id": "a1b2c3d4-e5f6-4789-a012-34567890100b",
+            "equipment":["suspendedBand"],
+            "muscleGroups": ["abdominals", "legs"],
+            "muscles": ["abs", "hipflexors"]
+        },
+        {
+            "name": "Banded Squat",
+            "description": "Place the glute band just above your knees. Stand with feet shoulder-width apart, toes slightly out. Push your knees outward against the band as you squat down to chair depth. Drive through your heels to stand back up.",
+            "id": "a1b2c3d4-e5f6-4789-a012-34567890100c",
+            "equipment":["gluteBand"],
+            "muscleGroups": ["legs"],
+            "muscles": ["glutes", "quads", "adductor"]
+        },
+        {
+            "name": "Banded Glute Bridge",
+            "description": "Lie on your back with knees bent and the glute band just above your knees, feet flat on the floor. Drive your hips up while pressing your knees outward against the band. Squeeze your glutes at the top, then lower with control.",
+            "id": "a1b2c3d4-e5f6-4789-a012-34567890100d",
+            "equipment":["gluteBand"],
+            "muscleGroups": ["legs", "abdominals"],
+            "muscles": ["glutes", "hamstrings"]
+        },
+        {
+            "name": "Ring Fly",
+            "description": "Hold the ring at chest height with both hands, elbows bent. Press outward against the ring in a fly motion, squeezing your chest. Slowly bring your hands back together at the center.",
+            "id": "a1b2c3d4-e5f6-4789-a012-34567890100e",
+            "equipment":["ring"],
+            "muscleGroups": ["arms", "abdominals"],
+            "muscles": ["pecs", "deltoids"]
+        },
+        {
+            "name": "Ring Triceps Press-Out",
+            "description": "Hold the ring behind your head with both hands, elbows bent. Press outward against the ring by spreading your hands apart, extending through your triceps. Slowly return to the starting position.",
+            "id": "a1b2c3d4-e5f6-4789-a012-34567890100f",
+            "equipment":["ring"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps", "rotatorcuff"]
+        },
+        {
+            "name": "Bird Dog",
+            "description": "Start on hands and knees with a flat back. Extend one arm forward and the opposite leg back until both are parallel to the floor. Hold briefly, then return and alternate sides throughout the set. Keep your hips level and core tight.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901010",
+            "muscleGroups": ["abdominals"],
+            "muscles": ["abs", "glutes", "traps"]
+        },
+        {
+            "name": "Dead Bug",
+            "description": "Lie on your back with arms extended toward the ceiling and knees bent at ninety degrees. Lower one arm overhead and the opposite leg toward the floor while keeping your lower back pressed down. Return and alternate sides throughout the set.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901011",
+            "muscleGroups": ["abdominals"],
+            "muscles": ["abs", "hipflexors"]
+        },
+        {
+            "name": "Side Plank",
+            "description": "Lie on your side with your forearm on the floor, elbow under your shoulder, and legs stacked. Lift your hips until your body forms a straight line from head to feet. Hold steady and breathe. Switch sides each set.",
+            "id": "a1b2c3d4-e5f6-4789-a012-345678901012",
+            "alternateSidesBetweenSets": true,
+            "muscleGroups": ["abdominals"],
+            "muscles": ["obliques", "abs"]
         }
     ]
 }
