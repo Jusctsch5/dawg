@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
-import 'package:dawg/ui/workout_page.dart';
-import 'package:dawg/workout/announcer.dart';
+import 'package:dawg/ui/active_workout_page.dart';
 import 'package:dawg/workout/decoder.dart';
-import 'package:dawg/workout/player.dart';
-import 'package:dawg/workout/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
@@ -53,8 +50,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final log = Logger();
-  final announcer = AnnouncerTts();
-  final player = Player();
   late ExerciseConfiguration ec;
 
   Future<List<WorkoutConfiguration>> _refreshWorkoutsAsync() async {
@@ -92,10 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return exConfig;
   }
 
-  Future<void> _processWorkoutConfig(WorkoutConfiguration wc) async {
-    var decoder = Decoder();
-    var workout = decoder.generateWorkout(wc, ec);
-    await player.playWorkout(workout, announcer);
+  void _openWorkout(WorkoutConfiguration wc) {
+    final workout = Decoder().generateWorkout(wc, ec);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ActiveWorkoutPage(workout: workout)),
+    );
   }
 
   @override
@@ -124,24 +121,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemCount: workoutConfigs.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                                onTap: () {
-                                  log.d("TAPPED $index");
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            WorkoutPage(title: workoutConfigs[index].name, workout: workoutConfigs[index])),
-                                  );
-                                },
+                                onTap: () => _openWorkout(workoutConfigs[index]),
                                 title: Text(workoutConfigs[index].name),
                                 subtitle: Text("Duration: ${workoutConfigs[index].durationMinutes} Minutes"),
-                                //trailing: Column(children: const [Icon(Icons.play_arrow)]));
                                 trailing: IconButton(
                                     icon: const Icon(Icons.play_arrow),
-                                    tooltip: 'Play Workout',
-                                    onPressed: () {
-                                      _processWorkoutConfig(workoutConfigs[index]);
-                                    }));
+                                    tooltip: 'Open Workout',
+                                    onPressed: () => _openWorkout(workoutConfigs[index])));
                           }),
                     ),
                   ],
