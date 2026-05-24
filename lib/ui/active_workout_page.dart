@@ -1,3 +1,5 @@
+import 'package:dawg/ui/avatar/exercise_wireframe_view.dart';
+import 'package:dawg/ui/avatar/wireframe_avatar.dart';
 import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/exercisew.dart';
 import 'package:dawg/workout/player.dart';
@@ -108,15 +110,15 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
       body: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: _ExerciseDemoPlaceholder(
               exercise: activeExercise,
-              isPlaying: isPlaying,
+              playbackState: _playbackState,
             ),
           ),
           const Divider(height: 1),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: _ExerciseTable(
               exercises: widget.workout.exercises,
               activeIndex: _playbackState.exerciseIndex,
@@ -141,74 +143,153 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
 class _ExerciseDemoPlaceholder extends StatelessWidget {
   const _ExerciseDemoPlaceholder({
     required this.exercise,
-    required this.isPlaying,
+    required this.playbackState,
   });
 
   final ExerciseW? exercise;
-  final bool isPlaying;
+  final WorkoutPlaybackState playbackState;
+
+  Widget _wireframe(Color color) {
+    return ExerciseWireframeView(
+      exerciseName: exercise?.exercise.name,
+      playbackState: playbackState,
+      color: color,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: DecoratedBox(
         decoration: BoxDecoration(
           border: Border.all(color: theme.dividerColor, width: 2),
           borderRadius: BorderRadius.circular(12),
           color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.35),
         ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: exercise == null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.accessibility_new, size: 72, color: theme.colorScheme.outline),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Exercise demo',
-                        style: theme.textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Wireframe avatar coming soon',
-                        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.outline),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        isPlaying ? Icons.directions_run : Icons.fitness_center,
-                        size: 72,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        exercise!.exercise.name,
-                        style: theme.textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        exercise!.exercise.description,
-                        style: theme.textTheme.bodyMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Avatar demo placeholder',
-                        style: theme.textTheme.labelMedium?.copyWith(color: theme.colorScheme.outline),
-                      ),
-                    ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final sideLayout = constraints.maxWidth >= 480;
+
+            if (sideLayout) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: _ExerciseSidePanel(
+                      alignment: Alignment.topLeft,
+                      child: exercise != null
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  exercise!.exercise.name,
+                                  style: theme.textTheme.titleLarge,
+                                ),
+                                const SizedBox(height: 12),
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    child: Text(
+                                      exercise!.exercise.description,
+                                      style: theme.textTheme.bodySmall?.copyWith(
+                                        color: theme.colorScheme.onSurfaceVariant,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Exercise demo',
+                                  style: theme.textTheme.titleLarge,
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  neutralStandingFront.label,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: theme.colorScheme.onSurfaceVariant,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                    ),
                   ),
-          ),
+                  Expanded(
+                    flex: 3,
+                    child: _wireframe(theme.colorScheme.primary),
+                  ),
+                ],
+              );
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (exercise != null) ...[
+                  Text(
+                    exercise!.exercise.name,
+                    style: theme.textTheme.titleMedium,
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    exercise!.exercise.description,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(height: 12),
+                ] else ...[
+                  Text(
+                    'Exercise demo',
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    neutralStandingFront.label,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+                Expanded(
+                  child: _wireframe(theme.colorScheme.primary),
+                ),
+              ],
+            );
+          },
         ),
+      ),
+    );
+  }
+}
+
+class _ExerciseSidePanel extends StatelessWidget {
+  const _ExerciseSidePanel({
+    required this.alignment,
+    required this.child,
+  });
+
+  final Alignment alignment;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Align(
+        alignment: alignment,
+        child: child,
       ),
     );
   }
