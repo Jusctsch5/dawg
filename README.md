@@ -24,5 +24,7 @@ Running tests:
 Some of the tests only require dart. Some of the tests require flutter.
 flutter run .\lib\workout\test\announcer_test.dart
 
+Wireframe avatar docs and projection debug simulator: `lib/ui/avatar/README.md`
+
 # If the Announcer used is AnnouncerTts vs AnnouncerLog
 flutter run .\lib\workout\test\player_test.dart

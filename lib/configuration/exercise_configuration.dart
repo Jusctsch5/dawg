@@ -87,7 +87,7 @@ class ExerciseConfiguration {
     var filterEquip = filter.equipment ?? [];
     if (filterEquip.contains(Equipment.all)) {
       filterEquip.clear();
-      filterEquip.addAll([Equipment.gluteBand, Equipment.resistanceBand, Equipment.suspendedBand, Equipment.ring]);
+      filterEquip.addAll([Equipment.gluteBand, Equipment.resistanceBand, Equipment.suspendedBand, Equipment.ring, Equipment.freeWeight]);
     }
 
     var filterGroups = filter.muscleGroups ?? [];
