@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:dawg/common_defines.dart';
+import 'package:dawg/ui/avatar/wireframe_equipment.dart';
 import 'package:dawg/ui/avatar/wireframe_pose.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,7 @@ class WireframeAvatarPainter extends CustomPainter {
   WireframeAvatarPainter({
     required this.pose,
     required this.color,
+    this.equipment = const [],
     this.strokeWidth = 2.5,
     this.jointRadius = 4.0,
     this.headRadiusFactor = 0.045,
@@ -16,6 +19,7 @@ class WireframeAvatarPainter extends CustomPainter {
 
   final WireframePose pose;
   final Color color;
+  final List<Equipment> equipment;
   final double strokeWidth;
   final double jointRadius;
   final double headRadiusFactor;
@@ -51,11 +55,36 @@ class WireframeAvatarPainter extends CustomPainter {
       final to = pose.joints[bone.to];
       if (from == null || to == null) continue;
 
-      canvas.drawLine(_mapPoint(from, bounds), _mapPoint(to, bounds), bonePaint);
+      final linePaint = WireframeEquipment.equipmentForBone(bone, equipment) != null
+          ? (Paint()
+            ..color = WireframeEquipment.colorFor(WireframeEquipment.equipmentForBone(bone, equipment)!)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = strokeWidth *
+                scale *
+                WireframeEquipment.strokeScaleFor(WireframeEquipment.equipmentForBone(bone, equipment)!)
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round)
+          : bonePaint;
+
+      canvas.drawLine(_mapPoint(from, bounds), _mapPoint(to, bounds), linePaint);
     }
 
     for (final entry in pose.joints.entries) {
       if (entry.key == pose.headJoint) continue;
+      if (WireframeEquipment.isEquipmentJoint(entry.key) &&
+          !WireframeEquipment.isWeightPlateJoint(entry.key)) {
+        continue;
+      }
+
+      if (WireframeEquipment.isWeightPlateJoint(entry.key)) {
+        final platePaint = Paint()
+          ..color = WireframeEquipment.freeWeightColor
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth * scale * 1.1;
+        canvas.drawCircle(_mapPoint(entry.value, bounds), dotRadius * 2.4, platePaint);
+        continue;
+      }
+
       canvas.drawCircle(_mapPoint(entry.value, bounds), dotRadius, jointPaint);
     }
   }
@@ -99,6 +128,7 @@ class WireframeAvatarPainter extends CustomPainter {
   bool shouldRepaint(covariant WireframeAvatarPainter oldDelegate) {
     return oldDelegate.pose != pose ||
         oldDelegate.color != color ||
+        oldDelegate.equipment != equipment ||
         oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.figureAspectRatio != figureAspectRatio;
   }

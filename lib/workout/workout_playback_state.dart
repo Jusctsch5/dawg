@@ -2,6 +2,7 @@ enum WorkoutSegment {
   idle,
   intro,
   preparingExercise,
+  exerciseDescription,
   countdown,
   activeSet,
   exerciseRest,

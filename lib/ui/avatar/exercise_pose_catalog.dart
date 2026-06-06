@@ -1,18 +1,23 @@
+import 'package:dawg/ui/avatar/poses/neutral_standing_3d.dart';
 import 'package:dawg/ui/avatar/poses/neutral_standing_front.dart';
-import 'package:dawg/ui/avatar/poses/pull_aparts.dart';
-import 'package:dawg/ui/avatar/wireframe_pose.dart';
+import 'package:dawg/ui/avatar/wireframe_figure.dart';
+import 'package:dawg/ui/avatar/wireframe_motion_registry.dart';
 
 class ExercisePoseCatalog {
-  static WireframeExerciseMotion? motionForExercise(String exerciseName) {
-    switch (exerciseName) {
-      case 'Pull Aparts':
-        return pullApartsMotion;
-      default:
-        return null;
-    }
+  static WireframeFigureMotion? motionForExercise(String exerciseName) {
+    return WireframeMotionRegistry.motionFor(exerciseName);
   }
 
-  static WireframePose idlePoseForExercise(String exerciseName) {
-    return motionForExercise(exerciseName)?.start ?? neutralStandingFront;
+  static WireframeFigurePose idlePoseForExercise(String exerciseName) {
+    return motionForExercise(exerciseName)?.start ?? defaultIdlePose;
+  }
+
+  static WireframeFigurePose get defaultIdlePose {
+    switch (WireframeRendererConfig.mode) {
+      case WireframeRendererMode.projected3d:
+        return ProjectedWireframeFigurePose(neutralStanding3d);
+      case WireframeRendererMode.flat2d:
+        return const FlatWireframeFigurePose(neutralStandingFront);
+    }
   }
 }

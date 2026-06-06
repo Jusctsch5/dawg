@@ -91,11 +91,21 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
   }
 
   ExerciseW? get _activeExercise {
-    final index = _playbackState.exerciseIndex;
+    final index = _displayExerciseIndex;
     if (index < 0 || index >= widget.workout.exercises.length) {
       return null;
     }
     return widget.workout.exercises[index];
+  }
+
+  int get _displayExerciseIndex {
+    if (_playbackState.exerciseIndex >= 0) {
+      return _playbackState.exerciseIndex;
+    }
+    if (!_playbackState.isPlaying && widget.workout.exercises.isNotEmpty) {
+      return 0;
+    }
+    return -1;
   }
 
   @override
@@ -121,7 +131,8 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
             flex: 2,
             child: _ExerciseTable(
               exercises: widget.workout.exercises,
-              activeIndex: _playbackState.exerciseIndex,
+              activeIndex: _displayExerciseIndex,
+              isPlaying: isPlaying,
               scrollController: _exerciseListController,
               rowKeys: _exerciseRowKeys,
             ),
@@ -152,6 +163,7 @@ class _ExerciseDemoPlaceholder extends StatelessWidget {
   Widget _wireframe(Color color) {
     return ExerciseWireframeView(
       exerciseName: exercise?.exercise.name,
+      equipment: exercise?.exercise.equipment ?? const [],
       playbackState: playbackState,
       color: color,
     );
@@ -299,12 +311,14 @@ class _ExerciseTable extends StatelessWidget {
   const _ExerciseTable({
     required this.exercises,
     required this.activeIndex,
+    required this.isPlaying,
     required this.scrollController,
     required this.rowKeys,
   });
 
   final List<ExerciseW> exercises;
   final int activeIndex;
+  final bool isPlaying;
   final ScrollController scrollController;
   final List<GlobalKey> rowKeys;
 
@@ -355,7 +369,7 @@ class _ExerciseTable extends StatelessWidget {
                       exerciseW.exercise.name,
                       style: TextStyle(fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
                     ),
-                    subtitle: isActive ? const Text('Now playing') : null,
+                    subtitle: isActive && isPlaying ? const Text('Now playing') : null,
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

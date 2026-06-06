@@ -34,7 +34,9 @@ class Player {
 
     await announcer.announce("Starting Workout: ${workout.name}");
     if (_cancelled) return;
-    await announcer.announce("This workout will take approximately ${workout.durationMinutes} minutes ");
+    await announcer.announce(
+      "This workout will take approximately ${workout.durationMinutes} minutes ",
+    );
     if (_cancelled) return;
 
     for (var exerciseIndex = 0; exerciseIndex < workout.exercises.length; exerciseIndex++) {
@@ -50,8 +52,25 @@ class Player {
 
       await announcer.announce("Next Exercise will be: ${exerciseW.exercise.name}");
       if (_cancelled) return;
+
+      notify(WorkoutPlaybackState(
+        isPlaying: true,
+        exerciseIndex: exerciseIndex,
+        setCount: exerciseW.sets,
+        segment: WorkoutSegment.exerciseDescription,
+        statusLabel: exerciseW.exercise.name,
+      ));
+
       await announcer.announce(exerciseW.exercise.description);
       if (_cancelled) return;
+
+      notify(WorkoutPlaybackState(
+        isPlaying: true,
+        exerciseIndex: exerciseIndex,
+        setCount: exerciseW.sets,
+        segment: WorkoutSegment.preparingExercise,
+        statusLabel: 'Up next: ${exerciseW.exercise.name}',
+      ));
 
       final positionCue = 'Get into position for ${exerciseW.exercise.name}';
       await announcer.announce(positionCue);
