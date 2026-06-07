@@ -56,6 +56,10 @@ add_subdirectory("runner")
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# flutter_tts WinRT coroutines need /await:strict on MSVC (see flutter_tts issue #559).
+if(TARGET flutter_tts_plugin)
+  target_compile_options(flutter_tts_plugin PRIVATE "/await")
+endif()
 
 # === Installation ===
 # Support files are copied into place next to the executable, so that it can
