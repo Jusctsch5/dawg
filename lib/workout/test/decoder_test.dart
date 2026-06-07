@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:dawg/configuration/workout_configuration.dart';
 import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/workout/decoder.dart';
+import 'package:dawg/workout/workout_duration_estimator.dart';
 import 'dart:developer';
 
 Future<void> testDecoder() async {
@@ -64,6 +65,33 @@ void main() {
     });
     test("testArms", () async {
       await testDecoderArms();
+    });
+    test('generated workout timed seconds stay near target', () async {
+      final configJson = {
+        'name': 'Dynamic Workout',
+        'muscleGroups': ['arms', 'legs', 'abdominals'],
+        'equipment': ['all'],
+        'durationMinutes': 20,
+        'startDelay': 30,
+        'finishDelay': 60,
+        'setDurationSeconds': 30,
+        'setPerExercise': 3,
+      };
+      final woConfig = WorkoutConfiguration.fromJson(configJson);
+
+      final file = File('lib/configuration/test/exercise_configuration.json');
+      final exConfig = ExerciseConfiguration.fromJson(
+        jsonDecode(await file.readAsString()),
+      );
+
+      final workout = Decoder().generateWorkout(woConfig, exConfig);
+      final timedSeconds = WorkoutDurationEstimator.estimateTimedSeconds(workout);
+
+      expect(woConfig.startDelaySeconds, 30);
+      expect(woConfig.finishDelaySeconds, 60);
+      expect(workout.exercises.length, lessThan(14));
+      expect(timedSeconds, lessThanOrEqualTo(woConfig.durationSeconds));
+      expect(workout.durationMinutes, WorkoutDurationEstimator.estimateMinutes(workout));
     });
   });
 }

@@ -42,10 +42,14 @@ class WorkoutConfiguration {
         startDelaySeconds =
           json.containsKey('startDelaySeconds') ?
           json['startDelaySeconds'] :
+          json.containsKey('startDelay') ?
+          json['startDelay'] :
           30,
         finishDelaySeconds =
         json.containsKey('finishDelaySeconds') ?
           json['finishDelaySeconds'] :
+          json.containsKey('finishDelay') ?
+          json['finishDelay'] :
           30,
         setDurationSeconds = json.containsKey('setDurationSeconds') ?
           json['setDurationSeconds'] :

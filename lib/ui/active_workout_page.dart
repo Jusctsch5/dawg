@@ -6,6 +6,7 @@ import 'package:dawg/workout/player.dart';
 import 'package:dawg/workout/workout.dart';
 import 'package:dawg/workout/workout_playback_gate.dart';
 import 'package:dawg/workout/workout_playback_state.dart';
+import 'package:dawg/workout/workout_duration_estimator.dart';
 import 'package:flutter/material.dart';
 
 class ActiveWorkoutPage extends StatefulWidget {
@@ -160,6 +161,7 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
             flex: 2,
             child: _ExerciseTable(
               exercises: widget.workout.exercises,
+              startDelaySeconds: widget.workout.startDelaySeconds,
               selectedIndex: _selectedExerciseIndex,
               playingIndex: _playbackState.exerciseIndex,
               isPlaying: isPlaying,
@@ -347,6 +349,7 @@ class _ExerciseSidePanel extends StatelessWidget {
 class _ExerciseTable extends StatelessWidget {
   const _ExerciseTable({
     required this.exercises,
+    required this.startDelaySeconds,
     required this.selectedIndex,
     required this.playingIndex,
     required this.isPlaying,
@@ -356,6 +359,7 @@ class _ExerciseTable extends StatelessWidget {
   });
 
   final List<ExerciseW> exercises;
+  final int startDelaySeconds;
   final int selectedIndex;
   final int playingIndex;
   final bool isPlaying;
@@ -428,7 +432,7 @@ class _ExerciseTable extends StatelessWidget {
                         SizedBox(
                           width: 72,
                           child: Text(
-                            '${exerciseW.totalDuration}s',
+                            '${WorkoutDurationEstimator.exerciseTimedSecondsFor(exerciseW, startDelaySeconds)}s',
                             textAlign: TextAlign.end,
                             style: theme.textTheme.bodyMedium,
                           ),

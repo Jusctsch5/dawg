@@ -20,6 +20,18 @@ UI (ActiveWorkoutPage)
 | **WorkoutPlaybackGate** | Cancel now; pause/resume later — one flag both layers read |
 | **WorkoutPlaybackState** | Snapshot for progress bar, wireframe, player bar |
 
+## Duration estimation
+
+[`WorkoutDurationEstimator`](../lib/workout/workout_duration_estimator.dart) mirrors [Player](../lib/workout/player.dart) timed segments (not TTS):
+
+| Per exercise | Seconds |
+|--------------|---------|
+| Setup | `max(5, startDelay − 5) + 5` countdown |
+| Each set | `max(5, setDuration − 5) + 5` countdown |
+| Between sets | 5s delay + 5s countdown (sets 2+) |
+
+Workout total = sum(exercise timed) + finish cooldown. [`Decoder`](../lib/workout/decoder.dart) uses the same formula when filling a preset to its target minutes (finish time reserved up front). `Workout.durationMinutes` is the **estimated** length after generation, not the preset target.
+
 ## WorkoutPlaybackGate
 
 Single control object shared by `Player` and `Announcer`:
