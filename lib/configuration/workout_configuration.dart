@@ -53,4 +53,33 @@ class WorkoutConfiguration {
         setPerExercise = json.containsKey('setPerExercise') ?
           json['setPerExercise'] :
           3;
+
+  /// Builds a one-off workout config from user-selected filters.
+  factory WorkoutConfiguration.custom({
+    List<MuscleGroup> muscleGroups = const [],
+    List<Equipment> equipment = const [],
+    int durationMinutes = 20,
+    int startDelaySeconds = 30,
+    int finishDelaySeconds = 30,
+    int setDurationSeconds = 30,
+    int setPerExercise = 3,
+  }) {
+    final resolvedGroups = muscleGroups.isEmpty
+        ? [MuscleGroup.abdominals, MuscleGroup.arms, MuscleGroup.legs]
+        : muscleGroups;
+    final groupLabel = muscleGroups.isEmpty
+        ? 'any'
+        : resolvedGroups.map((g) => g.name).join(', ');
+    return WorkoutConfiguration(
+      name: 'Custom ($groupLabel)',
+      muscleGroups: resolvedGroups,
+      durationMinutes: durationMinutes,
+      durationSeconds: durationMinutes * 60,
+      equipment: equipment.isEmpty ? [Equipment.all] : equipment,
+      startDelaySeconds: startDelaySeconds,
+      finishDelaySeconds: finishDelaySeconds,
+      setDurationSeconds: setDurationSeconds,
+      setPerExercise: setPerExercise,
+    );
+  }
 }

@@ -23,6 +23,7 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
   late final List<GlobalKey> _exerciseRowKeys;
 
   WorkoutPlaybackState _playbackState = const WorkoutPlaybackState();
+  int _selectedExerciseIndex = 0;
   int? _lastScrolledExerciseIndex;
 
   @override
@@ -64,6 +65,9 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
 
     setState(() {
       _playbackState = state;
+      if (state.exerciseIndex >= 0) {
+        _selectedExerciseIndex = state.exerciseIndex;
+      }
     });
 
     final index = state.exerciseIndex;
@@ -71,6 +75,11 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
       _lastScrolledExerciseIndex = index;
       _scrollToExercise(index);
     }
+  }
+
+  void _selectExercise(int index) {
+    if (index < 0 || index >= widget.workout.exercises.length) return;
+    setState(() => _selectedExerciseIndex = index);
   }
 
   void _scrollToExercise(int index) {
@@ -91,21 +100,20 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
   }
 
   ExerciseW? get _activeExercise {
-    final index = _displayExerciseIndex;
-    if (index < 0 || index >= widget.workout.exercises.length) {
+    if (_selectedExerciseIndex < 0 || _selectedExerciseIndex >= widget.workout.exercises.length) {
       return null;
     }
-    return widget.workout.exercises[index];
+    return widget.workout.exercises[_selectedExerciseIndex];
   }
 
-  int get _displayExerciseIndex {
-    if (_playbackState.exerciseIndex >= 0) {
-      return _playbackState.exerciseIndex;
+  WorkoutPlaybackState get _demoPlaybackState {
+    if (!_playbackState.isPlaying) {
+      return _playbackState;
     }
-    if (!_playbackState.isPlaying && widget.workout.exercises.isNotEmpty) {
-      return 0;
+    if (_selectedExerciseIndex == _playbackState.exerciseIndex) {
+      return _playbackState;
     }
-    return -1;
+    return const WorkoutPlaybackState();
   }
 
   @override
@@ -123,7 +131,7 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
             flex: 3,
             child: _ExerciseDemoPlaceholder(
               exercise: activeExercise,
-              playbackState: _playbackState,
+              playbackState: _demoPlaybackState,
             ),
           ),
           const Divider(height: 1),
@@ -131,8 +139,10 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
             flex: 2,
             child: _ExerciseTable(
               exercises: widget.workout.exercises,
-              activeIndex: _displayExerciseIndex,
+              selectedIndex: _selectedExerciseIndex,
+              playingIndex: _playbackState.exerciseIndex,
               isPlaying: isPlaying,
+              onExerciseSelected: _selectExercise,
               scrollController: _exerciseListController,
               rowKeys: _exerciseRowKeys,
             ),
@@ -310,15 +320,19 @@ class _ExerciseSidePanel extends StatelessWidget {
 class _ExerciseTable extends StatelessWidget {
   const _ExerciseTable({
     required this.exercises,
-    required this.activeIndex,
+    required this.selectedIndex,
+    required this.playingIndex,
     required this.isPlaying,
+    required this.onExerciseSelected,
     required this.scrollController,
     required this.rowKeys,
   });
 
   final List<ExerciseW> exercises;
-  final int activeIndex;
+  final int selectedIndex;
+  final int playingIndex;
   final bool isPlaying;
+  final ValueChanged<int> onExerciseSelected;
   final ScrollController scrollController;
   final List<GlobalKey> rowKeys;
 
@@ -349,27 +363,30 @@ class _ExerciseTable extends StatelessWidget {
               itemCount: exercises.length,
               itemBuilder: (context, index) {
                 final exerciseW = exercises[index];
-                final isActive = index == activeIndex;
+                final isSelected = index == selectedIndex;
+                final isNowPlaying = isPlaying && index == playingIndex;
 
                 return Material(
                   key: rowKeys[index],
-                  color: isActive ? theme.colorScheme.primaryContainer : null,
+                  color: isSelected ? theme.colorScheme.primaryContainer : null,
                   child: ListTile(
                     dense: true,
+                    selected: isSelected,
+                    onTap: () => onExerciseSelected(index),
                     leading: SizedBox(
                       width: 36,
                       child: Text(
                         '${index + 1}',
                         style: theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                         ),
                       ),
                     ),
                     title: Text(
                       exerciseW.exercise.name,
-                      style: TextStyle(fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
+                      style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
                     ),
-                    subtitle: isActive && isPlaying ? const Text('Now playing') : null,
+                    subtitle: isNowPlaying ? const Text('Now playing') : null,
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
