@@ -13,7 +13,9 @@ class FlutterTtsSpeech implements PlatformSpeech {
   @override
   Future<void> speak(String text) async {
     if (text.isEmpty) return;
-    await _tts.stop();
+    // Do NOT call stop() before the first utterance on Windows. flutter_tts 4.2.5
+    // WinRT backend (WINAPI_FAMILY_DESKTOP_APP) null-dereferences speakResult in
+    // stop() when awaitSpeakCompletion is true but no speak() has run yet.
     await _tts.speak(text);
   }
 }
