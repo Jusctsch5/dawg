@@ -2,17 +2,20 @@ import 'dart:math';
 
 import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/workout.dart';
+import 'package:dawg/workout/workout_playback_gate.dart';
 import 'package:dawg/workout/workout_playback_state.dart';
 
 class Player {
-  bool _cancelled = false;
+  Player({WorkoutPlaybackGate? gate}) : gate = gate ?? WorkoutPlaybackGate();
+
+  final WorkoutPlaybackGate gate;
 
   void cancel() {
-    _cancelled = true;
+    gate.cancel();
   }
 
   void reset() {
-    _cancelled = false;
+    gate.reset();
   }
 
   Future<void> playWorkout(
@@ -20,10 +23,10 @@ class Player {
     Announcer announcer, {
     WorkoutPlaybackListener? onStateChanged,
   }) async {
-    _cancelled = false;
+    gate.reset();
 
     void notify(WorkoutPlaybackState state) {
-      onStateChanged?.call(state);
+      onStateChanged?.call(state.copyWith(isPaused: gate.paused));
     }
 
     notify(const WorkoutPlaybackState(
@@ -32,12 +35,10 @@ class Player {
       statusLabel: 'Starting workout',
     ));
 
-    await announcer.announce("Starting Workout: ${workout.name}");
-    if (_cancelled) return;
-    await announcer.announce(
+    if (!await announcer.announce("Starting Workout: ${workout.name}")) return;
+    if (!await announcer.announce(
       "This workout will take approximately ${workout.durationMinutes} minutes ",
-    );
-    if (_cancelled) return;
+    )) return;
 
     for (var exerciseIndex = 0; exerciseIndex < workout.exercises.length; exerciseIndex++) {
       final exerciseW = workout.exercises[exerciseIndex];
@@ -50,8 +51,7 @@ class Player {
         statusLabel: 'Up next: ${exerciseW.exercise.name}',
       ));
 
-      await announcer.announce("Next Exercise will be: ${exerciseW.exercise.name}");
-      if (_cancelled) return;
+      if (!await announcer.announce("Next Exercise will be: ${exerciseW.exercise.name}")) return;
 
       notify(WorkoutPlaybackState(
         isPlaying: true,
@@ -61,8 +61,7 @@ class Player {
         statusLabel: exerciseW.exercise.name,
       ));
 
-      await announcer.announce(exerciseW.exercise.description);
-      if (_cancelled) return;
+      if (!await announcer.announce(exerciseW.exercise.description)) return;
 
       notify(WorkoutPlaybackState(
         isPlaying: true,
@@ -73,10 +72,9 @@ class Player {
       ));
 
       final positionCue = 'Get into position for ${exerciseW.exercise.name}';
-      await announcer.announce(positionCue);
-      if (_cancelled) return;
+      if (!await announcer.announce(positionCue)) return;
 
-      await _runDelay(
+      if (!await _runDelay(
         max(5, workout.startDelaySeconds - 5),
         WorkoutPlaybackState(
           isPlaying: true,
@@ -86,10 +84,9 @@ class Player {
           statusLabel: positionCue,
         ),
         notify,
-      );
-      if (_cancelled) return;
+      )) return;
 
-      await _runStartExerciseCountdown(
+      if (!await _runStartExerciseCountdown(
         announcer,
         exerciseW.exercise.name,
         5,
@@ -101,8 +98,7 @@ class Player {
           statusLabel: 'Starting ${exerciseW.exercise.name}',
         ),
         notify,
-      );
-      if (_cancelled) return;
+      )) return;
 
       for (var setNumber = 1; setNumber <= exerciseW.sets; setNumber++) {
         if (setNumber > 1) {
@@ -115,14 +111,12 @@ class Player {
             statusLabel: 'Set $setNumber of ${exerciseW.sets}',
           ));
 
-          await announcer.announce("Continuing Exercise: ${exerciseW.exercise.name}");
-          if (_cancelled) return;
+          if (!await announcer.announce("Continuing Exercise: ${exerciseW.exercise.name}")) return;
           if (exerciseW.exercise.alt) {
-            await announcer.announce("Change sides");
-            if (_cancelled) return;
+            if (!await announcer.announce("Change sides")) return;
           }
 
-          await _runDelay(
+          if (!await _runDelay(
             5,
             WorkoutPlaybackState(
               isPlaying: true,
@@ -133,10 +127,9 @@ class Player {
               statusLabel: 'Set $setNumber of ${exerciseW.sets}',
             ),
             notify,
-          );
-          if (_cancelled) return;
+          )) return;
 
-          await _runCountdown(
+          if (!await _runCountdown(
             announcer,
             5,
             WorkoutPlaybackState(
@@ -148,8 +141,7 @@ class Player {
               statusLabel: 'Set $setNumber',
             ),
             notify,
-          );
-          if (_cancelled) return;
+          )) return;
         }
 
         notify(WorkoutPlaybackState(
@@ -161,12 +153,11 @@ class Player {
           statusLabel: 'Set $setNumber of ${exerciseW.sets}',
         ));
 
-        await announcer.announce(
+        if (!await announcer.announce(
           "Set $setNumber of ${exerciseW.sets} of ${exerciseW.exercise.name}, Ready Go!",
-        );
-        if (_cancelled) return;
+        )) return;
 
-        await _runDelay(
+        if (!await _runDelay(
           max(5, exerciseW.setDuration - 5),
           WorkoutPlaybackState(
             isPlaying: true,
@@ -177,10 +168,9 @@ class Player {
             statusLabel: 'Set $setNumber of ${exerciseW.sets}',
           ),
           notify,
-        );
-        if (_cancelled) return;
+        )) return;
 
-        await _runCountdown(
+        if (!await _runCountdown(
           announcer,
           5,
           WorkoutPlaybackState(
@@ -192,8 +182,7 @@ class Player {
             statusLabel: 'Finishing set $setNumber',
           ),
           notify,
-        );
-        if (_cancelled) return;
+        )) return;
       }
 
       notify(WorkoutPlaybackState(
@@ -204,10 +193,8 @@ class Player {
         statusLabel: 'Cooldown',
       ));
 
-      await announcer.announce("Finished Exercise: ${exerciseW.exercise.name}");
-      if (_cancelled) return;
-      await announcer.announce("Exercise cooldown for ${workout.startDelaySeconds} seconds");
-      if (_cancelled) return;
+      if (!await announcer.announce("Finished Exercise: ${exerciseW.exercise.name}")) return;
+      if (!await announcer.announce("Exercise cooldown for ${workout.startDelaySeconds} seconds")) return;
     }
 
     notify(const WorkoutPlaybackState(
@@ -216,12 +203,10 @@ class Player {
       statusLabel: 'Cool down',
     ));
 
-    await announcer.announce("Exercises for Workout: ${workout.name} Finished");
-    if (_cancelled) return;
-    await announcer.announce("Work it off for: ${workout.finishDelaySeconds} seconds");
-    if (_cancelled) return;
+    if (!await announcer.announce("Exercises for Workout: ${workout.name} Finished")) return;
+    if (!await announcer.announce("Work it off for: ${workout.finishDelaySeconds} seconds")) return;
 
-    await _runDelay(
+    if (!await _runDelay(
       max(5, workout.finishDelaySeconds - 5),
       const WorkoutPlaybackState(
         isPlaying: true,
@@ -229,10 +214,9 @@ class Player {
         statusLabel: 'Cool down',
       ),
       notify,
-    );
-    if (_cancelled) return;
+    )) return;
 
-    await _runCountdown(
+    if (!await _runCountdown(
       announcer,
       5,
       const WorkoutPlaybackState(
@@ -241,8 +225,7 @@ class Player {
         statusLabel: 'Almost done',
       ),
       notify,
-    );
-    if (_cancelled) return;
+    )) return;
 
     await announcer.announce("Finished Workout: ${workout.name}. Great Job.");
 
@@ -254,27 +237,27 @@ class Player {
     ));
   }
 
-  Future<void> _runDelay(
+  Future<bool> _runDelay(
     int seconds,
     WorkoutPlaybackState state,
     WorkoutPlaybackListener notify,
   ) async {
     if (seconds <= 0) {
       notify(state.copyWith(segmentProgress: 1));
-      return;
+      return true;
     }
 
     for (var elapsed = 0; elapsed < seconds; elapsed++) {
-      if (_cancelled) return;
       for (var tick = 0; tick < 10; tick++) {
-        if (_cancelled) return;
+        if (!await gate.proceed()) return false;
         await Future.delayed(const Duration(milliseconds: 100));
         notify(state.copyWith(segmentProgress: (elapsed + (tick + 1) / 10) / seconds));
       }
     }
+    return true;
   }
 
-  Future<void> _runStartExerciseCountdown(
+  Future<bool> _runStartExerciseCountdown(
     Announcer announcer,
     String exerciseName,
     int from,
@@ -282,36 +265,36 @@ class Player {
     WorkoutPlaybackListener notify,
   ) async {
     for (var remaining = from; remaining > 0; remaining--) {
-      if (_cancelled) return;
+      if (!await gate.proceed()) return false;
       notify(state.copyWith(
         segmentProgress: (from - remaining) / from,
         statusLabel: '${state.statusLabel} — $remaining',
       ));
       if (remaining == from) {
-        await announcer.announce('Starting Exercise $exerciseName in $remaining');
+        if (!await announcer.announce('Starting Exercise $exerciseName in $remaining')) return false;
       } else {
-        await announcer.announce(remaining.toString());
+        if (!await announcer.announce(remaining.toString())) return false;
       }
-      if (_cancelled) return;
     }
     notify(state.copyWith(segmentProgress: 1));
+    return true;
   }
 
-  Future<void> _runCountdown(
+  Future<bool> _runCountdown(
     Announcer announcer,
     int from,
     WorkoutPlaybackState state,
     WorkoutPlaybackListener notify,
   ) async {
     for (var remaining = from; remaining > 0; remaining--) {
-      if (_cancelled) return;
+      if (!await gate.proceed()) return false;
       notify(state.copyWith(
         segmentProgress: (from - remaining) / from,
         statusLabel: '${state.statusLabel} — $remaining',
       ));
-      await announcer.announce(remaining.toString());
-      if (_cancelled) return;
+      if (!await announcer.announce(remaining.toString())) return false;
     }
     notify(state.copyWith(segmentProgress: 1));
+    return true;
   }
 }

@@ -37,13 +37,42 @@ class _ExerciseWireframeViewState extends State<ExerciseWireframeView>
     _loopController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2400),
-    )..repeat();
+    );
+    _syncAnimation();
+  }
+
+  @override
+  void didUpdateWidget(ExerciseWireframeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.playbackState.isPaused != widget.playbackState.isPaused ||
+        oldWidget.playbackState.isPlaying != widget.playbackState.isPlaying ||
+        oldWidget.playbackState.segment != widget.playbackState.segment) {
+      _syncAnimation();
+    }
   }
 
   @override
   void dispose() {
     _loopController.dispose();
     super.dispose();
+  }
+
+  bool _shouldAnimate() {
+    final segment = widget.playbackState.segment;
+    return (!widget.playbackState.isPlaying ||
+            segment == WorkoutSegment.exerciseDescription ||
+            segment == WorkoutSegment.activeSet) &&
+        !widget.playbackState.isPaused;
+  }
+
+  void _syncAnimation() {
+    if (_shouldAnimate()) {
+      if (!_loopController.isAnimating) {
+        _loopController.repeat();
+      }
+    } else {
+      _loopController.stop();
+    }
   }
 
   @override
@@ -65,12 +94,7 @@ class _ExerciseWireframeViewState extends State<ExerciseWireframeView>
       );
     }
 
-    final segment = widget.playbackState.segment;
-    final animating = !widget.playbackState.isPlaying ||
-        segment == WorkoutSegment.exerciseDescription ||
-        segment == WorkoutSegment.activeSet;
-
-    if (animating) {
+    if (_shouldAnimate()) {
       return AnimatedBuilder(
         animation: _loopController,
         builder: (context, _) {
@@ -87,8 +111,12 @@ class _ExerciseWireframeViewState extends State<ExerciseWireframeView>
       );
     }
 
+    final pose = widget.playbackState.isPaused
+        ? motion.poseAt(_loopController.value)
+        : motion.start;
+
     return _WireframePaint(
-      pose: WireframeEquipmentLayout.augmentFigure(motion.start, widget.equipment),
+      pose: WireframeEquipmentLayout.augmentFigure(pose, widget.equipment),
       equipment: widget.equipment,
       color: figureColor,
       strokeWidth: widget.strokeWidth,

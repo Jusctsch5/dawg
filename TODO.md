@@ -15,3 +15,8 @@
 ## Backend
 
 - [ ] We want to be able to store records of our exercises and workouts. Seems reasonable to just use local storage for now.
+
+## Workout Player
+
+- [x] Pause/resume button in active workout bar (`WorkoutPlaybackGate` + `isPaused` on playback state)
+- [x] Sentence-split announcer + shared cancel gate

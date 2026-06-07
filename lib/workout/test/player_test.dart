@@ -12,6 +12,7 @@ import 'package:dawg/configuration/exercise_configuration.dart';
 import 'package:dawg/configuration/workout_configuration.dart';
 import 'dart:developer';
 
+import 'package:dawg/workout/workout_playback_gate.dart';
 import 'package:dawg/workout/exercisew.dart';
 
 Future<void> testPlayer() async {
@@ -28,8 +29,9 @@ Future<void> testPlayer() async {
   var ex3 = ExerciseW(e3, 10, 2);
 
   var workout = Workout("Example Workout", [ex1, ex2, ex3], workConfig.muscleGroups, workConfig.startDelaySeconds, workConfig.finishDelaySeconds, workConfig.durationMinutes);
-  var player = Player();
-  var announcer = AnnouncerLog();
+  var gate = WorkoutPlaybackGate();
+  var player = Player(gate: gate);
+  var announcer = AnnouncerLog(gate: gate);
 
   player.playWorkout(workout, announcer);
   inspect(workout);

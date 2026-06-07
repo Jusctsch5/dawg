@@ -13,6 +13,7 @@ enum WorkoutSegment {
 class WorkoutPlaybackState {
   const WorkoutPlaybackState({
     this.isPlaying = false,
+    this.isPaused = false,
     this.exerciseIndex = -1,
     this.setNumber = 0,
     this.setCount = 0,
@@ -22,6 +23,7 @@ class WorkoutPlaybackState {
   });
 
   final bool isPlaying;
+  final bool isPaused;
   final int exerciseIndex;
   final int setNumber;
   final int setCount;
@@ -31,6 +33,7 @@ class WorkoutPlaybackState {
 
   WorkoutPlaybackState copyWith({
     bool? isPlaying,
+    bool? isPaused,
     int? exerciseIndex,
     int? setNumber,
     int? setCount,
@@ -40,6 +43,7 @@ class WorkoutPlaybackState {
   }) {
     return WorkoutPlaybackState(
       isPlaying: isPlaying ?? this.isPlaying,
+      isPaused: isPaused ?? this.isPaused,
       exerciseIndex: exerciseIndex ?? this.exerciseIndex,
       setNumber: setNumber ?? this.setNumber,
       setCount: setCount ?? this.setCount,

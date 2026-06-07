@@ -1,6 +1,7 @@
 import 'package:dawg/configuration/workout_configuration.dart';
 import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/player.dart';
+import 'package:dawg/workout/workout_playback_gate.dart';
 import 'package:dawg/workout/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -54,8 +55,9 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   final log = Logger();
-  final announcer = AnnouncerTts();
-  final player = Player();
+  final _gate = WorkoutPlaybackGate();
+  late final AnnouncerTts announcer = AnnouncerTts(gate: _gate);
+  late final Player player = Player(gate: _gate);
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:dawg/workout/announcer.dart';
 import 'package:dawg/workout/exercisew.dart';
 import 'package:dawg/workout/player.dart';
 import 'package:dawg/workout/workout.dart';
+import 'package:dawg/workout/workout_playback_gate.dart';
 import 'package:dawg/workout/workout_playback_state.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,9 @@ class ActiveWorkoutPage extends StatefulWidget {
 }
 
 class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
-  final _player = Player();
-  final _announcer = AnnouncerTts();
+  late final WorkoutPlaybackGate _gate;
+  late final Player _player;
+  late final AnnouncerTts _announcer;
   final _exerciseListController = ScrollController();
   late final List<GlobalKey> _exerciseRowKeys;
 
@@ -29,6 +31,9 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
   @override
   void initState() {
     super.initState();
+    _gate = WorkoutPlaybackGate();
+    _player = Player(gate: _gate);
+    _announcer = AnnouncerTts(gate: _gate);
     _exerciseRowKeys = List.generate(
       widget.workout.exercises.length,
       (_) => GlobalKey(),
@@ -56,6 +61,22 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
     ).whenComplete(() {
       if (mounted) {
         setState(() {});
+      }
+    });
+  }
+
+  void _togglePause() {
+    if (!_playbackState.isPlaying || _playbackState.segment == WorkoutSegment.finished) {
+      return;
+    }
+
+    setState(() {
+      if (_gate.paused) {
+        _gate.resume();
+        _playbackState = _playbackState.copyWith(isPaused: false);
+      } else {
+        _gate.pause();
+        _playbackState = _playbackState.copyWith(isPaused: true);
       }
     });
   }
@@ -113,7 +134,7 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
     if (_selectedExerciseIndex == _playbackState.exerciseIndex) {
       return _playbackState;
     }
-    return const WorkoutPlaybackState();
+    return WorkoutPlaybackState(isPaused: _playbackState.isPaused);
   }
 
   @override
@@ -156,7 +177,13 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
               label: const Text('GO!'),
             )
           : null,
-      bottomNavigationBar: isPlaying ? _WorkoutPlayerBar(state: _playbackState, exercise: activeExercise) : null,
+      bottomNavigationBar: isPlaying
+          ? _WorkoutPlayerBar(
+              state: _playbackState,
+              exercise: activeExercise,
+              onTogglePause: _togglePause,
+            )
+          : null,
     );
   }
 }
@@ -423,46 +450,60 @@ class _WorkoutPlayerBar extends StatelessWidget {
   const _WorkoutPlayerBar({
     required this.state,
     required this.exercise,
+    required this.onTogglePause,
   });
 
   final WorkoutPlaybackState state;
   final ExerciseW? exercise;
+  final VoidCallback onTogglePause;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final title = exercise?.exercise.name ?? 'Workout';
-    final subtitle = state.statusLabel;
+    final subtitle = state.isPaused ? 'Paused' : state.statusLabel;
 
     return Material(
       elevation: 8,
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          padding: const EdgeInsets.fromLTRB(8, 12, 16, 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(title, style: theme.textTheme.titleMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
-              const SizedBox(height: 4),
-              Text(subtitle, style: theme.textTheme.bodySmall),
-              const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: LinearProgressIndicator(
-                  value: state.segmentProgress.clamp(0, 1),
-                  minHeight: 8,
+              IconButton(
+                onPressed: onTogglePause,
+                icon: Icon(state.isPaused ? Icons.play_arrow : Icons.pause),
+                tooltip: state.isPaused ? 'Resume' : 'Pause',
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(title, style: theme.textTheme.titleMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
+                    const SizedBox(height: 4),
+                    Text(subtitle, style: theme.textTheme.bodySmall),
+                    const SizedBox(height: 8),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: LinearProgressIndicator(
+                        value: state.segmentProgress.clamp(0, 1),
+                        minHeight: 8,
+                      ),
+                    ),
+                    if (state.setNumber > 0 && state.setCount > 0) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'Set ${state.setNumber} of ${state.setCount}',
+                        style: theme.textTheme.labelMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ],
                 ),
               ),
-              if (state.setNumber > 0 && state.setCount > 0) ...[
-                const SizedBox(height: 8),
-                Text(
-                  'Set ${state.setNumber} of ${state.setCount}',
-                  style: theme.textTheme.labelMedium,
-                  textAlign: TextAlign.center,
-                ),
-              ],
             ],
           ),
         ),
