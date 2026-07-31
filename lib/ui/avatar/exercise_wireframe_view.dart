@@ -13,6 +13,7 @@ class ExerciseWireframeView extends StatefulWidget {
     this.exerciseName,
     this.equipment = const [],
     this.playbackState = const WorkoutPlaybackState(),
+    this.animateWireframes = true,
     this.color,
     this.strokeWidth = 2.5,
   });
@@ -20,6 +21,7 @@ class ExerciseWireframeView extends StatefulWidget {
   final String? exerciseName;
   final List<Equipment> equipment;
   final WorkoutPlaybackState playbackState;
+  final bool animateWireframes;
   final Color? color;
   final double strokeWidth;
 
@@ -46,7 +48,8 @@ class _ExerciseWireframeViewState extends State<ExerciseWireframeView>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.playbackState.isPaused != widget.playbackState.isPaused ||
         oldWidget.playbackState.isPlaying != widget.playbackState.isPlaying ||
-        oldWidget.playbackState.segment != widget.playbackState.segment) {
+        oldWidget.playbackState.segment != widget.playbackState.segment ||
+        oldWidget.animateWireframes != widget.animateWireframes) {
       _syncAnimation();
     }
   }
@@ -58,6 +61,8 @@ class _ExerciseWireframeViewState extends State<ExerciseWireframeView>
   }
 
   bool _shouldAnimate() {
+    if (!widget.animateWireframes) return false;
+
     final segment = widget.playbackState.segment;
     return (!widget.playbackState.isPlaying ||
             segment == WorkoutSegment.exerciseDescription ||
@@ -111,7 +116,7 @@ class _ExerciseWireframeViewState extends State<ExerciseWireframeView>
       );
     }
 
-    final pose = widget.playbackState.isPaused
+    final pose = widget.playbackState.isPaused && widget.animateWireframes
         ? motion.poseAt(_loopController.value)
         : motion.start;
 

@@ -104,6 +104,27 @@ void main() {
       expect(ExercisePoseCatalog.motionForExercise('Ring Press'), isA<GripTargetMotion3d>());
     });
 
+    testWidgets('renders static pose when animateWireframes is false', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 400,
+              height: 600,
+              child: ExerciseWireframeView(
+                exerciseName: 'Ring Press',
+                equipment: [Equipment.ring],
+                animateWireframes: false,
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1200));
+      expect(tester.takeException(), isNull);
+    });
+
     testWidgets('renders Suspended Row with equipment wireframe', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(

@@ -1,3 +1,4 @@
+import 'package:dawg/settings/app_settings.dart';
 import 'package:dawg/ui/exercise_browser_page.dart';
 import 'package:dawg/ui/workouts_page.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('DAWG'),
+        actions: [
+          IconButton(
+            onPressed: () => showAppSettingsDialog(context),
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
