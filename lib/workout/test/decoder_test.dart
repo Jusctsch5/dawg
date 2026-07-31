@@ -22,7 +22,7 @@ Future<void> testDecoder() async {
   };
   var woConfig = WorkoutConfiguration.fromJson(json);
 
-  var file = File('lib/configuration/test/exercise_configuration.json');
+  var file = File('assets/data/exercise/exercise_configuration.json');
   json = jsonDecode(await file.readAsString());
   var exConfig = ExerciseConfiguration.fromJson(json);
 
@@ -46,7 +46,7 @@ Future<void> testDecoderArms() async {
 
   var woConfig = WorkoutConfiguration.fromJson(json);
 
-  var file = File('lib/configuration/test/exercise_configuration.json');
+  var file = File('assets/data/exercise/exercise_configuration.json');
   json = jsonDecode(await file.readAsString());
   var exConfig = ExerciseConfiguration.fromJson(json);
 
@@ -79,7 +79,7 @@ void main() {
       };
       final woConfig = WorkoutConfiguration.fromJson(configJson);
 
-      final file = File('lib/configuration/test/exercise_configuration.json');
+      final file = File('assets/data/exercise/exercise_configuration.json');
       final exConfig = ExerciseConfiguration.fromJson(
         jsonDecode(await file.readAsString()),
       );

@@ -453,6 +453,153 @@
             "alternateSidesBetweenSets": true,
             "muscleGroups": ["abdominals"],
             "muscles": ["obliques", "abs"]
+        },
+        {
+            "name": "Curl to Front Squat with dumbbell",
+            "description": "Stand holding a dumbbell in each hand at your sides. Curl the weights to your shoulders, then squat down while keeping your chest up and back straight. Stand back up and lower the weights to complete the rep.",
+            "id": "38155cb5-66c0-4437-9501-241fed52c156",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["legs", "arms"],
+            "muscles":["glutes", "hipflexors", "quads", "abs", "calves", "biceps", "adductor"]
+        },
+        {
+            "name": "Hex Squats with dumbbell",
+            "description": "Stand with feet shoulder-width apart, holding a dumbbell at your chest or one in each hand at your sides. Squat down until your thighs are parallel to the floor, like sitting into a chair. Drive through your heels to stand back up.",
+            "id": "24aeee2c-c059-4350-ba52-9ce22146c888",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["abdominals", "legs"],
+            "muscles": ["glutes", "hipflexors", "quads", "calves", "hamstrings", "adductor"]
+        },
+        {
+            "name": "Romanian Deadlift with dumbbell",
+            "description": "Stand with feet hip-width apart, holding a dumbbell in each hand in front of your thighs. Hinge at the hips and push your glutes back, lowering the weights toward your shins while keeping your back flat. Return to standing by squeezing your glutes.",
+            "id": "8caaef01-ebef-4691-b489-220695e2aeb1",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["abdominals", "legs"],
+            "muscles": [ "hamstrings", "glutes", "hipflexors"]
+        },
+        {
+            "name": "Glute Bridge with dumbbell",
+            "description": "Lie on your back with knees bent and feet flat. Hold a dumbbell across your hips with both hands. Drive your hips up until your body forms a straight line from shoulders to knees. Squeeze your glutes at the top, then lower with control.",
+            "id": "e5d10c44-0189-4f27-95ee-0ca50751c266",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["abdominals"],
+            "muscles": [ "hamstrings", "glutes"]
+        },
+        {
+            "name": "Lunge with dumbbell",
+            "description": "Stand with a dumbbell in each hand at your sides, or one held at your chest. Step into a lunge, lowering your back knee toward the floor. Push through your front heel to return to standing. Alternate legs each set.",
+            "id": "36546820-7e03-4d5e-acbd-4741fda6758e",
+            "alternateSidesBetweenSets": true,
+            "equipment":["freeWeight"],
+            "muscleGroups": ["legs"],
+            "muscles": [ "hamstrings", "glutes", "quads"]
+        },
+        {
+            "name": "Alt Low Crossover with dumbbell",
+            "description": "Stand holding a dumbbell in your working hand at your side. Curl across your body toward the opposite shoulder, then lower slowly. Switch arms each set.",
+            "id": "147c26d4-c6d4-456a-b541-fe9beea186d2",
+            "alternateSidesBetweenSets": true,
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["biceps"]
+        },
+        {
+            "name": "High Crossover with dumbbell",
+            "description": "Stand with a dumbbell in each hand at your sides, or both hands on one dumbbell at hip height in front. With mostly straight arms, raise the weight to shoulder height in front, then lower with control.",
+            "id": "a317dd96-2faf-4bd5-89a7-0507c26a5654",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["biceps"]
+        },
+        {
+            "name": "Bicep Curls with dumbbell",
+            "description": "Stand with a dumbbell in each hand at your sides, palms forward. Curl your hands toward your shoulders, squeezing your biceps at the top. Lower slowly.",
+            "id": "a792d30b-13b4-4165-abb3-0bd1f2603325",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["biceps"]
+        },
+        {
+            "name": "Shoulder Lat Raise with dumbbell",
+            "description": "Stand with a dumbbell in each hand at your sides. With a slight bend in your elbows, raise your arms out to the sides until they reach shoulder height in a T shape. Lower with control.",
+            "id": "173ee338-cfcf-4f90-85ee-04912b3b55e2",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["traps", "deltoids"]
+        },
+        {
+            "name": "Side Bends with dumbbell",
+            "description": "Stand with feet hip-width apart, holding a dumbbell in one hand at your side. Bend sideways at the waist toward the weight, then return to standing upright. Keep the movement slow and controlled. Switch sides each set.",
+            "id": "78f800d6-b6a8-47bd-b32c-3db8912e7713",
+            "alternateSidesBetweenSets": true,
+            "equipment":["freeWeight"],
+            "muscleGroups": ["abdominals"],
+            "muscles": ["obliques", "abs"]
+        },
+        {
+            "name": "Overhead Triceps Extension with dumbbell",
+            "description": "Stand holding one dumbbell overhead with both hands, elbows bent beside your head. Extend your arms straight up by straightening your elbows. Lower back to the bent position with control.",
+            "id": "4727ef44-d8f5-44eb-8dce-a5269bb35bf0",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps"]
+        },
+        {
+            "name": "Arnold Press with dumbbell",
+            "description": "Stand holding a dumbbell in each hand at shoulder height, palms facing you. Press upward and rotate your palms forward as you extend your arms overhead. Reverse the motion on the way down.",
+            "id": "db168820-8c5c-49dc-8a97-6b36635591d1",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps", "traps", "deltoids"]
+        },
+        {
+            "name": "Shoulder Press with dumbbell",
+            "description": "Stand with a dumbbell in each hand at shoulder height, palms facing forward. Press straight overhead until your arms are nearly straight. Lower back to shoulder height with control.",
+            "id": "a8231641-0016-4330-a233-03994141b751",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["deltoids", "triceps", "traps", "pecs"]
+        },
+        {
+            "name": "Chest Press with dumbbell",
+            "description": "Lie on your back on the floor or a bench, holding a dumbbell in each hand at chest height, elbows bent. Press upward until your arms are extended, then lower with control.",
+            "id": "4f7dbcf3-483f-475c-a367-88745485c77d",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms", "abdominals"],
+            "muscles": ["pecs", "triceps", "deltoids"]
+        },
+        {
+            "name": "Chest Fly with dumbbell",
+            "description": "Lie on your back on the floor or a bench, arms extended out to your sides at shoulder level holding a dumbbell in each hand, elbows soft. Bring your hands together above your chest in a wide arc, squeezing your chest. Open back out with control.",
+            "id": "ed56b764-15aa-4486-ad48-d8aff04d8ab0",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms", "abdominals"],
+            "muscles": ["pecs", "deltoids"]
+        },
+        {
+            "name": "Triceps Kickback with dumbbell",
+            "description": "Hinge forward at the hips with a flat back, holding a dumbbell in each hand with elbows bent at your sides. Extend your arms straight back, squeezing your triceps at the top. Return to the bent position with control.",
+            "id": "d9e917d2-7b1f-4bef-818b-cecc08bb66d1",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["arms"],
+            "muscles": ["triceps"]
+        },
+        {
+            "name": "Calf Raise with dumbbell",
+            "description": "Stand holding a dumbbell in each hand at your sides, or one at your chest. Rise up onto your toes as high as you can, pause briefly, then lower your heels back down with control.",
+            "id": "5ce14375-c3e1-483b-a968-f2f0e870b596",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["legs"],
+            "muscles": ["calves"]
+        },
+        {
+            "name": "Good Morning with dumbbell",
+            "description": "Stand with feet hip-width apart, holding a dumbbell at your chest or across your upper back. Hinge at the hips and push your glutes back, lowering your torso until it is nearly parallel to the floor. Return to standing by squeezing your glutes.",
+            "id": "b9cfd373-59d7-4cff-bb6a-b1939c31f1c6",
+            "equipment":["freeWeight"],
+            "muscleGroups": ["legs", "abdominals"],
+            "muscles": ["hamstrings", "glutes", "hipflexors"]
         }
     ]
 }

@@ -1,0 +1,8 @@
+{
+    "name": "Dynamic Arms Dumbbell Workout",
+    "muscleGroups": ["arms"],
+    "equipment": ["freeWeight"],
+    "durationMinutes": 20,
+    "startDelay": 20,
+    "finishDelay": 60
+}

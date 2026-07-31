@@ -1,3 +1,4 @@
+import 'package:dawg/settings/app_settings.dart';
 import 'package:dawg/ui/avatar/exercise_wireframe_view.dart';
 import 'package:dawg/ui/avatar/wireframe_avatar.dart';
 import 'package:dawg/workout/announcer.dart';
@@ -146,6 +147,13 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.workout.name),
+        actions: [
+          IconButton(
+            onPressed: () => showAppSettingsDialog(context),
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -154,6 +162,7 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
             child: _ExerciseDemoPlaceholder(
               exercise: activeExercise,
               playbackState: _demoPlaybackState,
+              animateWireframes: AppSettingsScope.of(context).wireframeAnimationsEnabled,
             ),
           ),
           const Divider(height: 1),
@@ -194,16 +203,19 @@ class _ExerciseDemoPlaceholder extends StatelessWidget {
   const _ExerciseDemoPlaceholder({
     required this.exercise,
     required this.playbackState,
+    required this.animateWireframes,
   });
 
   final ExerciseW? exercise;
   final WorkoutPlaybackState playbackState;
+  final bool animateWireframes;
 
   Widget _wireframe(Color color) {
     return ExerciseWireframeView(
       exerciseName: exercise?.exercise.name,
       equipment: exercise?.exercise.equipment ?? const [],
       playbackState: playbackState,
+      animateWireframes: animateWireframes,
       color: color,
     );
   }
