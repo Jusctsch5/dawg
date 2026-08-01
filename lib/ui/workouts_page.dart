@@ -39,13 +39,20 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
   Future<void> _openWorkout(WorkoutConfiguration config) async {
     final exerciseConfig = await ExerciseRepository.instance.loadExercises();
-    final workout = Decoder().generateWorkout(config, exerciseConfig);
-    if (!mounted) return;
+    try {
+      final workout = Decoder().generateWorkout(config, exerciseConfig);
+      if (!mounted) return;
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ActiveWorkoutPage(workout: workout)),
-    );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ActiveWorkoutPage(workout: workout)),
+      );
+    } on StateError catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.message)),
+      );
+    }
   }
 
   void _toggleCustomMuscleGroup(MuscleGroup group) {

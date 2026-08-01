@@ -11,8 +11,10 @@ class Decoder {
   final log = Logger();
 
   /// Obtains a new exercise from list of exercises, where "new" means not present in excluded.
-  /// If one is not available, return a random exercise.
-  Exercise getNewExerciseFromListOrRandom(List<Exercise> exercises, List<Exercise> excluded) {
+  /// Returns null if [exercises] is empty.
+  Exercise? getNewExerciseFromListOrRandom(List<Exercise> exercises, List<Exercise> excluded) {
+    if (exercises.isEmpty) return null;
+
     exercises.shuffle();
     for (var exercise in exercises) {
       if (!excluded.contains(exercise)) {
@@ -45,21 +47,34 @@ class Decoder {
 
     // Find an exercise for each muscle to work.
     while (currentExerciseLengthSeconds + exerciseTimedSeconds <= exerciseBudgetSeconds) {
+      var addedThisPass = false;
       for (var muscleToWork in musclesToWork) {
         if (currentExerciseLengthSeconds + exerciseTimedSeconds > exerciseBudgetSeconds) {
           break;
         }
 
-        var filter = ExerciseFilterByGroups(equipment: woConfig.equipment, muscle: muscleToWork);
+        var filter = ExerciseFilterByGroups(
+          equipment: woConfig.equipment,
+          muscleGroups: woConfig.muscleGroups,
+          muscle: muscleToWork,
+        );
         var muscleExercises = exConfig.filterExercisesByGroups(filter);
         var exerciseDef = getNewExerciseFromListOrRandom(muscleExercises, exercisesForWorkout);
+        if (exerciseDef == null) {
+          log.v('No ${woConfig.equipment} exercises for muscle $muscleToWork; skipping');
+          continue;
+        }
+
         var exercisew = ExerciseW(exerciseDef, woConfig.setDurationSeconds, woConfig.setPerExercise);
         exercisesForWorkout.add(exerciseDef);
         exercisesWForWorkout.add(exercisew);
         currentExerciseLengthSeconds += exerciseTimedSeconds;
+        addedThisPass = true;
 
         log.i("Adding exercise:${exerciseDef.name} to workout (musclegroup:${exerciseDef.muscleGroups}");
       }
+      // Avoid infinite loop when no muscle has matching equipment.
+      if (!addedThisPass) break;
     }
 
     // Plug in exercises until workout is complete.
@@ -67,12 +82,21 @@ class Decoder {
     var totalExercises = exConfig.filterExercisesByGroups(filter);
     while (currentExerciseLengthSeconds + exerciseTimedSeconds <= exerciseBudgetSeconds) {
       var exerciseDef = getNewExerciseFromListOrRandom(totalExercises, exercisesForWorkout);
+      if (exerciseDef == null) break;
+
       var exercisew = ExerciseW(exerciseDef, woConfig.setDurationSeconds, woConfig.setPerExercise);
       exercisesForWorkout.add(exerciseDef);
       exercisesWForWorkout.add(exercisew);
       currentExerciseLengthSeconds += exerciseTimedSeconds;
 
       log.i("Adding exercise:${exerciseDef.name} to workout (musclegroup:${exerciseDef.muscleGroups}");
+    }
+
+    if (exercisesWForWorkout.isEmpty) {
+      throw StateError(
+        'No exercises match equipment ${woConfig.equipment} '
+        'and muscle groups ${woConfig.muscleGroups} for "${woConfig.name}"',
+      );
     }
 
     final estimatedWorkout = Workout(

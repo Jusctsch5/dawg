@@ -93,5 +93,29 @@ void main() {
       expect(timedSeconds, lessThanOrEqualTo(woConfig.durationSeconds));
       expect(workout.durationMinutes, WorkoutDurationEstimator.estimateMinutes(workout));
     });
+
+    test('freeWeight preset skips muscles with no matching exercises', () async {
+      final woConfig = WorkoutConfiguration.fromJson({
+        'name': 'Dynamic Dumbbell Workout',
+        'muscleGroups': ['arms', 'legs', 'abdominals'],
+        'equipment': ['freeWeight'],
+        'durationMinutes': 20,
+        'startDelay': 20,
+        'finishDelay': 60,
+      });
+      final exConfig = ExerciseConfiguration.fromJson(
+        jsonDecode(await File('assets/data/exercise/exercise_configuration.json').readAsString()),
+      );
+
+      final workout = Decoder().generateWorkout(woConfig, exConfig);
+      expect(workout.exercises, isNotEmpty);
+      for (final exerciseW in workout.exercises) {
+        final equipment = exerciseW.exercise.equipment;
+        expect(
+          equipment.contains(Equipment.freeWeight) || equipment.contains(Equipment.none),
+          isTrue,
+        );
+      }
+    });
   });
 }
